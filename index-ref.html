@@ -1,0 +1,124 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jared Floersch</title>
+  <meta property="og:title" content="Jared Floersch">
+  <meta property="og:site_name" content="Jared Floersch">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="https://latex.now.sh/style.css">
+  <link rel="stylesheet" href="https://latex.now.sh/prism/prism.css">
+  <link rel="icon" href="imgs/me.png">
+</head>
+
+<style>
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.center-fig-caption {
+  text-align: center;
+}
+
+
+</style>
+
+<body class="libertinus latex-dark">
+  <header>
+    <h1>Matouš Elphick <a onclick="play()"><img src="imgs/sound.png" alt="sound-img" style="height:20px" class="center"></a> </h1>
+  </header>
+  <figure>
+    <img src="imgs/me.png" alt="matous-img" style="height:200px" class="center">
+  </figure>
+  <nav role="navigation" class="toc">
+    <h2>Contents</h2>
+    <div><hr></div>
+
+    <ol>
+      <li><a href="#about-me">About Me</a></li>
+      <li><a href="#publication">Publications</a></li>
+      <li><a href="#speaking">Conference Presentations</a></li>
+      <li><a href="#cv">Curriculum Vitae</a></li>
+      <li><a href="#contact">Contact Details</a></li>
+    </ol>
+  </nav>
+  <main>
+    <article>
+      <h2 id="about-me">About Me</h2>
+      <div><hr></div>
+      <p> I am an undergraduate student currently in the final year of a four-year B.Sc. degree in <i>Computer Science with
+        an Industrial Placement</i> at Newcastle University. As part of my course I've completed a year-long research placement in
+        Dr. Lucy Collinson’s group in the Electron Microscopy Science Technology Platform at the Francis Crick Institute
+        in London. Working under the supervision of Dr. Martin Jones, I developed bioimage analysis plugins for napari
+        that use machine learning techniques to automate the targeted analysis and segmentation of mitochondrial cristae
+        in volume electron microscopy images. Summer 2023 I also had the opportunity to do a 6-Week research placement in
+        Professor Samra Turajlic's lab, under the supervision of Dr. Charlotte Spencer and Dr. Anne-Laure Cattin Arrighi.
+        Here I was developing a pipeline which would extract statistics relating to the interactivity of different cells
+        in the tumour micro-environment of clear cell renal cell carcinoma biopsies.
+      </p>
+    </article>
+    <article>
+      <h2 id="publication">Publications</h2>
+      <div><hr></div>
+      <ul>
+        <li>Krentzel, D., Elphick, M., Domart, M.C., Peddie, C.J., Laine, R.F., Henriques, R., Collinson, L.M. and Jones, M.L., 2023. CLEM-Reg: An automated point cloud based registration algorithm for correlative light and volume electron microscopy. bioRxiv, pp.2023-05.</li>
+      </ul>
+    </article>
+    <article>
+      <h2 id="speaking">Conference presentations</h2>
+      <div><hr></div>
+      <p><b>Crick Bioimage Analysis Conference 2023</b></p>
+
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/KWtTKHcIhA0?si=hdTkKuZCUZDIMvg6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+      <p><b>The Society of Electron Microscope Technology (SEMT) 2022: RMS Early Career Speakers' Competition</b></p>
+      <p>I had the pleasure of taking part in the RMS Early Career Speakers' Competition which took place at the amazing
+        Natural History Museum in London on the 7th of December 2022. Here I presented my research on automating the targeted analysis of mitochondrial cristae
+        in volume electron microscopy images using random forests.
+      </p>
+      <figure>
+        <img src="imgs/rms-image.jpg" alt="rms-image" style="width:400px" class="center">
+        <figcaption class="center-fig-caption"> Photograph taken by Lucy Collinson</figcaption>
+      </figure>
+    </article>
+    <article>
+      <h2 id="cv">Curriculum Vitae</h2>
+      <div><hr></div>
+      <p>
+        <a href="https://MatousE.github.io/docs/Matouš_Elphick_CV.pdf" target="_blank">Link to CV</a>
+      </p>
+    </article>
+    <article>
+      <h2 id="contact">Contact Details </h2>
+      <div><hr></div>
+      <p>
+        Email: matous.elphick@crick.ac.uk
+      </p>
+      <p>
+        LinkedIn: <a href="https://www.linkedin.com/in/matous-elphick/"> Matouš Elphick</a>
+      </p>
+      <p>
+        Twitter:
+        <a href="https://twitter.com/matous_elphick"> matous_elphick</a>
+      </p>
+      <p>
+        GitHub:
+        <a href="https://github.com/MatousE"> MatousE</a>
+      </p>
+    </article>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+    function play() {
+        var audio = document.getElementById("audio");
+        audio.play();
+      }</script>
+  <audio id="audio" src="audio/pronunciation_cs_matouš.mp3"></audio>
+
+</body>
+</html>
