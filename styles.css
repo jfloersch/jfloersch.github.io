@@ -4,7 +4,7 @@
  * Source: https://github.com/vincentdoerig/latex-css
  * Licensed under MIT (https://github.com/vincentdoerig/latex-css/blob/master/LICENSE)
 */
-
+/* 
 @font-face {
     font-family: 'Latin Modern';
     font-style: normal;
@@ -91,7 +91,7 @@
     font-weight: 600;
     font-display: swap;
     src: url('./fonts/Libertinus-semibold-italic.woff2') format('woff2');
-}
+} */
 
 /* Box sizing rules */
 *,
@@ -182,10 +182,13 @@ body {
 /* Media query for mobile devices */
 @media (max-width: 768px) {
     body {
-        max-width: 100%; /* Makes the text span edge-to-edge on mobile */
-        padding: 1rem 0.5rem; /* Adjust padding for smaller screens */
+        max-width: 100%; /* Allows the text to span the full width of the screen */
+        padding: 1rem 15; /* Removes horizontal padding */
+        margin: 0 auto; /* Ensures there is no additional margin affecting layout */
+        font-size: 16px; /* Increase the font size on mobile devices for better readability */
     }
 }
+
 
 /* Justify and hyphenate all paragraphs */
 p {
