@@ -170,7 +170,7 @@ body {
     font-family: 'Helvetica', 'Arial', sans-serif;
     font-size: 16px;
     line-height: 1.8;
-    max-width: 80ch; /* Keeps the max-width for desktop */
+    max-width: 100ch; /* Keeps the max-width for desktop */
     min-height: 100vh;
     overflow-x: hidden;
     margin: 0 auto;
