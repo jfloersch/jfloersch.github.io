@@ -662,9 +662,10 @@ input.sidenote-toggle {
 
 /* Heading typography */
 h1 {
+    text-align: center;
     font-size: 2.5rem;
     line-height: 3.25rem;
-    margin-bottom: 1.625rem;
+    margin-bottom: 0rem;
 }
 
 h2 {
