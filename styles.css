@@ -102,9 +102,10 @@
 
 
 :root {
-        --body-color: hsl(0, 0%, 86%);
-        --body-bg-color: hsl(0, 0%, 16%);
-        --link-visited: hsl(196 80% 77%);
+        --body-color: hsl(48, 20%, 20%);
+        --body-bg-color: hsl(50, 26%, 91%);
+        --link: hsl(251, 32%, 52%);
+        --link-visited: hsl(251, 32%, 52%);
         --link-focus-outline: hsl(215, 63%, 73%);
         --pre-bg-color: hsl(0, 1%, 25%);
         --kbd-bg-color: hsl(0, 0%, 16%);
@@ -226,7 +227,9 @@ a:not([class]) {
 }
 
 /* Make links red */
-a,
+a {
+    color: var(--link);
+}
 a:visited {
     color: var(--link-visited);
 }
@@ -739,7 +742,7 @@ nav ul li {
 }
 
 nav ul li a {
-        color: white; /* Sets text color */
+        color: hsl(251, 32%, 52%); /* Sets text color */
         text-decoration: none; /* Removes underline from links */
         font-size: 16px;
 }
