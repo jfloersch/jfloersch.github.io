@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Scrolless — Block Algorithmic Feeds in Safari | Feed Blocker for iOS & Mac</title>
+  <meta name="description" content="Scrolless is a Safari extension that blocks algorithmic feeds and cleans algorithm-injected content from Instagram, YouTube, TikTok, Reddit, Twitter/X, Facebook, and Bluesky. Stop doomscrolling. Keep your messages, search, and posting. No subscription — pay once, own it forever.">
+  <meta name="keywords" content="feed blocker, block algorithm, safari extension, doomscrolling, screen time, block reels, block shorts, infinite scroll, digital detox, social media blocker, instagram feed blocker, youtube blocker, tiktok blocker, reddit blocker, feed cleaner, mindful browsing, phone addiction, digital wellbeing">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Scrolless — Block Algorithmic Feeds in Safari">
+  <meta property="og:description" content="A Safari extension that blocks addictive feeds and cleans algorithmic content from Instagram, YouTube, TikTok, Reddit, and more. Pay once, own it forever.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://festudio.net/scrolless">
+  <meta property="og:image" content="https://festudio.net/scrolless/og-image.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Scrolless — Block Algorithmic Feeds in Safari">
+  <meta name="twitter:description" content="Stop doomscrolling. A Safari extension that blocks algorithmic feeds while keeping messages, search, and posting. No subscription.">
+  <meta name="twitter:image" content="https://festudio.net/scrolless/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="app-icon.png">
+  <link rel="apple-touch-icon" href="app-icon.png">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Scrolless",
+    "operatingSystem": "iOS, macOS",
+    "applicationCategory": "UtilitiesApplication",
+    "description": "A Safari extension that blocks algorithmic feeds and cleans algorithm-injected content from social media platforms. Works with Instagram, YouTube, TikTok, Reddit, Twitter/X, Facebook, and Bluesky.",
+    "url": "https://festudio.net/scrolless",
+    "downloadUrl": "https://apps.apple.com/us/app/scrolless-feed-blocker/id6758870122",
+    "author": {
+      "@type": "Organization",
+      "name": "Fe Studio",
+      "url": "https://festudio.net"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "2.99",
+      "priceCurrency": "USD",
+      "description": "48-hour free trial, then $2.99 one-time purchase — no subscription"
+    },
+    "featureList": [
+      "Block algorithmic feeds on 8+ platforms",
+      "Feed Cleaner removes algorithm-injected posts",
+      "Safari extension for iOS and macOS",
+      "12-hour cooldown on loosening restrictions",
+      "Fully customizable rules for any website",
+      "No account, no tracking, no subscription"
+    ]
+  }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       CSS Custom Properties
+    ============================================================ */
+    :root {
+      --dark-bg: #1B2A4A;
+      --chaos-dark: #1A1118;
+      --light-bg: #F5F7FA;
+      --warm-bg: #FFF4E6;
+      --brand-blue: #2E5090;
+      --text-dark: #1B2A4A;
+      --text-light: #FFFFFF;
+      --text-muted: #6B7280;
+      --success: #27AE60;
+      --block-red: #E74C3C;
+      --amber: #E8890C;
+
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+      --radius: 12px;
+      --radius-sm: 8px;
+      --transition: 0.2s ease;
+    }
+
+    /* ============================================================
+       Reset & Base
+    ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background: var(--light-bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      color: var(--brand-blue);
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* ============================================================
+       Critical Hero CSS (inlined for fast render)
+    ============================================================ */
+
+    /* ============================================================
+       Layout Helpers
+    ============================================================ */
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .section {
+      padding: 80px 0;
+    }
+
+    @media (max-width: 768px) {
+      .section {
+        padding: 56px 0;
+      }
+    }
+
+    /* ============================================================
+       Section 1: Hero
+    ============================================================ */
+    .hero {
+      background: var(--chaos-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(46, 80, 144, 0.25) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(232, 137, 12, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 7vw, 72px);
+      font-weight: 700;
+      color: var(--text-light);
+      line-height: 1.1;
+      margin-bottom: 28px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(17px, 2.5vw, 22px);
+      color: rgba(255, 255, 255, 0.72);
+      max-width: 680px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+
+    .app-store-badge {
+      display: inline-block;
+      margin-bottom: 20px;
+      transition: opacity var(--transition), transform var(--transition);
+    }
+
+    .app-store-badge:hover {
+      opacity: 0.85;
+      transform: translateY(-2px);
+    }
+
+    .app-store-badge:focus-visible {
+      outline: 3px solid var(--amber);
+      outline-offset: 4px;
+      border-radius: 8px;
+    }
+
+    .app-store-badge img {
+      height: 52px;
+      width: auto;
+    }
+
+    /* Apple badge SVG fallback */
+    .badge-svg-wrap {
+      display: inline-flex;
+      align-items: center;
+      background: #000;
+      color: #fff;
+      border-radius: 10px;
+      padding: 10px 20px;
+      gap: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      border: 1.5px solid rgba(255,255,255,0.2);
+    }
+
+    .badge-svg-wrap svg {
+      width: 24px;
+      height: 24px;
+      fill: #fff;
+      flex-shrink: 0;
+    }
+
+    .badge-svg-wrap span {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .badge-svg-wrap .badge-sub {
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      opacity: 0.85;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+
+    .badge-svg-wrap .badge-main {
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .hero-note {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.45);
+      margin-top: 4px;
+    }
+
+    /* ============================================================
+       Section 2: How It Works
+    ============================================================ */
+    .how-it-works {
+      background: var(--light-bg);
+    }
+
+    .section-label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--brand-blue);
+      margin-bottom: 12px;
+    }
+
+    .how-it-works h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .how-it-works .lead {
+      font-size: clamp(16px, 2vw, 18px);
+      color: var(--text-muted);
+      max-width: 640px;
+      margin-bottom: 56px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    @media (max-width: 768px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .feature-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+    }
+
+    .feature-card h3 {
+      font-size: clamp(20px, 2.5vw, 26px);
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .feature-card .card-lead {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    /* Blocked/Allowed pairs */
+    .block-allow-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .block-allow-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .item-blocked,
+    .item-allowed {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+    }
+
+    .item-blocked {
+      background: rgba(231, 76, 60, 0.07);
+      color: var(--block-red);
+    }
+
+    .item-allowed {
+      background: rgba(39, 174, 96, 0.07);
+      color: var(--success);
+    }
+
+    .item-blocked .icon,
+    .item-allowed .icon {
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* Feed Cleaner card */
+    .feed-cleaner-desc {
+      font-size: 15px;
+      color: var(--text-dark);
+      line-height: 1.7;
+    }
+
+    .feed-cleaner-desc em {
+      font-style: normal;
+      color: var(--text-muted);
+    }
+
+    .feed-cleaner-visual {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .feed-col {
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      font-size: 13px;
+    }
+
+    .feed-col-label {
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .feed-col.before {
+      background: rgba(231, 76, 60, 0.06);
+      border: 1px solid rgba(231, 76, 60, 0.15);
+    }
+
+    .feed-col.before .feed-col-label { color: var(--block-red); }
+
+    .feed-col.after {
+      background: rgba(39, 174, 96, 0.06);
+      border: 1px solid rgba(39, 174, 96, 0.15);
+    }
+
+    .feed-col.after .feed-col-label { color: var(--success); }
+
+    .feed-item {
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      color: var(--text-dark);
+      font-size: 12px;
+    }
+
+    .feed-item:last-child { border-bottom: none; }
+
+    .feed-item.junk {
+      color: var(--block-red);
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+
+    /* ============================================================
+       Section 3: 12-Hour Rule
+    ============================================================ */
+    .twelve-hour {
+      background: var(--warm-bg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .twelve-hour::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(232, 137, 12, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .twelve-hour-inner {
+      max-width: 680px;
+    }
+
+    .twelve-hour h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .twelve-hour .rule-text {
+      font-size: clamp(16px, 2vw, 18px);
+      color: var(--text-dark);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    .twelve-hour .rule-punch {
+      font-size: clamp(17px, 2.2vw, 20px);
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .rule-punch .tight { color: var(--success); }
+    .rule-punch .loose { color: var(--amber); }
+
+    .clock-visual {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 36px;
+      padding: 24px;
+      background: rgba(255,255,255,0.7);
+      border-radius: var(--radius);
+      border: 1px solid rgba(232, 137, 12, 0.2);
+      backdrop-filter: blur(8px);
+      max-width: 480px;
+    }
+
+    .clock-icon {
+      font-size: 40px;
+      flex-shrink: 0;
+    }
+
+    .clock-text {
+      font-size: 14px;
+      color: var(--text-dark);
+    }
+
+    .clock-text strong {
+      display: block;
+      font-size: 16px;
+      color: var(--amber);
+      margin-bottom: 2px;
+    }
+
+    /* ============================================================
+       Section 4: Platforms
+    ============================================================ */
+    .platforms {
+      background: var(--light-bg);
+      text-align: center;
+    }
+
+    .platforms h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .platforms .platforms-sub {
+      font-size: clamp(16px, 2vw, 18px);
+      color: var(--text-muted);
+      max-width: 560px;
+      margin: 0 auto 48px;
+    }
+
+    .platform-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+
+    .platform-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 20px;
+      background: #fff;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-dark);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+      border-left: 4px solid currentColor;
+    }
+
+    .platform-pill.reddit    { color: #FF4500; }
+    .platform-pill.instagram { color: #E1306C; }
+    .platform-pill.tiktok   { color: #010101; border-left-color: #010101; }
+    .platform-pill.youtube  { color: #FF0000; }
+    .platform-pill.twitter  { color: #1DA1F2; }
+    .platform-pill.facebook { color: #1877F2; }
+    .platform-pill.bluesky  { color: #0085FF; }
+
+    .platform-pill.custom {
+      color: var(--brand-blue);
+      border-left: none;
+      border: 2px dashed var(--brand-blue);
+      opacity: 0.75;
+    }
+
+    .platforms-detail {
+      font-size: clamp(15px, 1.8vw, 17px);
+      color: var(--text-muted);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ============================================================
+       Section 5: What Makes Scrolless Different
+    ============================================================ */
+    .differentiators {
+      background: #fff;
+    }
+
+    .differentiators h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .differentiators .diff-lead {
+      font-size: clamp(16px, 2vw, 18px);
+      color: var(--text-muted);
+      margin-bottom: 48px;
+      max-width: 560px;
+    }
+
+    .diff-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .diff-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .diff-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .diff-card {
+      background: var(--light-bg);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .diff-card .diff-icon {
+      font-size: 28px;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .diff-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .diff-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ============================================================
+       Section 6: Perfect For
+    ============================================================ */
+    .perfect-for {
+      background: var(--light-bg);
+      position: relative;
+    }
+
+    .perfect-for::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(46, 80, 144, 0.03) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .perfect-for h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 40px;
+      letter-spacing: -0.02em;
+    }
+
+    .personas-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .personas-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .persona-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      font-size: 15px;
+      color: var(--text-dark);
+      line-height: 1.5;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .persona-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ============================================================
+       Section 7: Privacy & CTA
+    ============================================================ */
+    .cta-section {
+      background: var(--dark-bg);
+      text-align: center;
+      padding: 100px 24px;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      color: var(--text-light);
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .cta-section .cta-body {
+      font-size: clamp(16px, 2vw, 18px);
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 540px;
+      margin: 0 auto 12px;
+      line-height: 1.7;
+    }
+
+    .cta-section .cta-compat {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.45);
+      margin-bottom: 36px;
+    }
+
+    /* ============================================================
+       Footer
+    ============================================================ */
+    footer {
+      background: var(--chaos-dark);
+      padding: 32px 24px;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    footer p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.4);
+      line-height: 2;
+    }
+
+    footer a {
+      color: rgba(255, 255, 255, 0.55);
+      transition: color var(--transition);
+    }
+
+    footer a:hover {
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* ============================================================
+       Scroll-fade animations
+    ============================================================ */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================================
+       Utility
+    ============================================================ */
+    .text-center { text-align: center; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       Section 1: Hero
+  ============================================================ -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-eyebrow">Safari Extension for iOS &amp; Mac</span>
+      <h1>Stop the scroll.<br>Keep the connection.</h1>
+      <p class="hero-subtitle">
+        Scrolless is a Safari extension that blocks algorithmic feeds
+        and cleans algorithm-injected content out of the feeds you keep —
+        on Instagram, YouTube, TikTok, Reddit, Twitter/X, Facebook, Bluesky, and more.
+      </p>
+      <a
+        href="https://apps.apple.com/us/app/scrolless-feed-blocker/id6758870122"
+        class="app-store-badge"
+        aria-label="Download Scrolless on the App Store"
+      >
+        <div class="badge-svg-wrap">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+          </svg>
+          <span>
+            <span class="badge-sub">Download on the</span>
+            <span class="badge-main">App Store</span>
+          </span>
+        </div>
+      </a>
+      <p class="hero-note">Free 48-hour trial · $2.99 one-time purchase · No account · No tracking · No subscription.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Section 2: How It Works
+  ============================================================ -->
+  <section class="section how-it-works">
+    <div class="container">
+      <p class="section-label fade-in">How it works</p>
+      <h2 class="fade-in">Two tools. One goal.</h2>
+      <p class="lead fade-in">
+        Step one: delete your native social media apps. Use the web versions
+        in Safari instead — they're already less polished, less pushy, and less
+        addictive. Scrolless handles the rest.
+      </p>
+
+      <div class="features-grid">
+        <!-- Feed Blocker -->
+        <div class="feature-card fade-in">
+          <h3>Feed Blocker</h3>
+          <p class="card-lead">Block the worst offenders entirely.</p>
+          <ul class="block-allow-list">
+            <li class="block-allow-pair">
+              <div class="item-blocked"><span class="icon">✕</span> Reddit's front page — Blocked.</div>
+              <div class="item-allowed"><span class="icon">✓</span> A specific post you searched for — Allowed.</div>
+            </li>
+            <li class="block-allow-pair">
+              <div class="item-blocked"><span class="icon">✕</span> Instagram Reels — Blocked.</div>
+              <div class="item-allowed"><span class="icon">✓</span> Your friend's stories — Allowed.</div>
+            </li>
+            <li class="block-allow-pair">
+              <div class="item-blocked"><span class="icon">✕</span> YouTube homepage — Blocked.</div>
+              <div class="item-allowed"><span class="icon">✓</span> A video someone sent you — Allowed.</div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Feed Cleaner -->
+        <div class="feature-card fade-in">
+          <h3>Feed Cleaner</h3>
+          <p class="card-lead">Clean up the feeds you still use.</p>
+          <p class="feed-cleaner-desc">
+            Some feeds are worth keeping — but the algorithm stuffs them with content
+            you never asked for. Feed Cleaner strips out the algorithmic posts —
+            suggested content, sponsored posts, "recommended for you" —
+            and leaves only what you actually follow.
+          </p>
+          <div class="feed-cleaner-visual" aria-hidden="true">
+            <div class="feed-col before">
+              <div class="feed-col-label">Before</div>
+              <div class="feed-item">@friend posted</div>
+              <div class="feed-item junk">Suggested for you</div>
+              <div class="feed-item">@friend posted</div>
+              <div class="feed-item junk">Sponsored</div>
+              <div class="feed-item junk">You might like</div>
+              <div class="feed-item">@friend posted</div>
+            </div>
+            <div class="feed-col after">
+              <div class="feed-col-label">After</div>
+              <div class="feed-item">@friend posted</div>
+              <div class="feed-item">@friend posted</div>
+              <div class="feed-item">@friend posted</div>
+              <div class="feed-item">@friend posted</div>
+              <div class="feed-item">@friend posted</div>
+              <div class="feed-item">@friend posted</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Section 3: 12-Hour Rule
+  ============================================================ -->
+  <section class="section twelve-hour">
+    <div class="container">
+      <div class="twelve-hour-inner">
+        <p class="section-label fade-in">Built-in protection</p>
+        <h2 class="fade-in">The 12-Hour Rule</h2>
+        <p class="rule-text fade-in">
+          Any change that loosens your restrictions takes 12 hours to kick in.
+          You're making that decision when you're thinking clearly —
+          not when you're bored at 11pm craving a dopamine hit.
+        </p>
+        <p class="rule-punch fade-in">
+          <span class="tight">Tightening restrictions? Instant.</span><br>
+          <span class="loose">Loosening them? Sleep on it.</span>
+        </p>
+        <div class="clock-visual fade-in" aria-hidden="true">
+          <div class="clock-icon">⏱</div>
+          <div class="clock-text">
+            <strong>12 hours before changes loosen</strong>
+            Because good decisions aren't made at 11pm on your couch.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Section 4: Platforms
+  ============================================================ -->
+  <section class="section platforms">
+    <div class="container">
+      <h2 class="fade-in">Works with everything you need to block</h2>
+      <p class="platforms-sub fade-in">
+        All the places doomscrolling happens. Block infinite scroll,
+        block Reels, block Shorts — on any or all of them.
+      </p>
+
+      <ul class="platform-grid" aria-label="Supported platforms">
+        <li class="platform-pill reddit fade-in">Reddit</li>
+        <li class="platform-pill instagram fade-in">Instagram</li>
+        <li class="platform-pill tiktok fade-in">TikTok</li>
+        <li class="platform-pill youtube fade-in">YouTube</li>
+        <li class="platform-pill twitter fade-in">Twitter / X</li>
+        <li class="platform-pill facebook fade-in">Facebook</li>
+        <li class="platform-pill bluesky fade-in">Bluesky</li>
+        <li class="platform-pill custom fade-in">+ Any site you add</li>
+      </ul>
+
+      <p class="platforms-detail fade-in">
+        Fully customizable. Allow specific subreddits, block entire platforms,
+        or write custom rules for any website. Smart defaults out of the box
+        so it works immediately — no setup required.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Section 5: Differentiators
+  ============================================================ -->
+  <section class="section differentiators">
+    <div class="container">
+      <p class="section-label fade-in">Why Scrolless</p>
+      <h2 class="fade-in">Not another screen time timer</h2>
+      <p class="diff-lead fade-in">
+        Most apps block entire apps or set timers you just tap through.
+        Scrolless works differently.
+      </p>
+
+      <div class="diff-grid">
+        <div class="diff-card fade-in">
+          <span class="diff-icon" aria-hidden="true">🧩</span>
+          <h3>Safari extension, not an in-app browser</h3>
+          <p>Your tabs, history, and autofill work normally. No locked-down browsers or extra apps.</p>
+        </div>
+        <div class="diff-card fade-in">
+          <span class="diff-icon" aria-hidden="true">⚙️</span>
+          <h3>Two modes, one app</h3>
+          <p>Block entire feeds or clean the algorithm out of feeds you want to keep. Your choice, per platform.</p>
+        </div>
+        <div class="diff-card fade-in">
+          <span class="diff-icon" aria-hidden="true">⏱</span>
+          <h3>The 12-Hour Rule</h3>
+          <p>Loosening restrictions takes 12 hours, so you decide with a clear head — not in a weak moment.</p>
+        </div>
+        <div class="diff-card fade-in">
+          <span class="diff-icon" aria-hidden="true">✏️</span>
+          <h3>Custom rules for any website</h3>
+          <p>Not just a preset list of platforms. Build rules for any URL pattern — any site, any element.</p>
+        </div>
+        <div class="diff-card fade-in">
+          <span class="diff-icon" aria-hidden="true">🔒</span>
+          <h3>No account, no tracking</h3>
+          <p>Everything runs on your device. No data leaves your phone. No sign-up, ever.</p>
+        </div>
+        <div class="diff-card fade-in">
+          <span class="diff-icon" aria-hidden="true">💳</span>
+          <h3>Pay once, own it forever</h3>
+          <p>No subscription, no ads, no upsells. One payment, permanent access.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Section 6: Perfect For
+  ============================================================ -->
+  <section class="section perfect-for">
+    <div class="container">
+      <h2 class="fade-in">Perfect for</h2>
+      <div class="personas-grid">
+        <div class="persona-card fade-in">
+          <span class="persona-icon" aria-hidden="true">🎯</span>
+          <span>People who want to use social media intentionally, not compulsively</span>
+        </div>
+        <div class="persona-card fade-in">
+          <span class="persona-icon" aria-hidden="true">📚</span>
+          <span>Students who lose hours to Reddit and YouTube</span>
+        </div>
+        <div class="persona-card fade-in">
+          <span class="persona-icon" aria-hidden="true">💼</span>
+          <span>Professionals who need LinkedIn and Twitter without the feed</span>
+        </div>
+        <div class="persona-card fade-in">
+          <span class="persona-icon" aria-hidden="true">⚡</span>
+          <span>Anyone with ADHD who struggles with infinite scroll and phone addiction</span>
+        </div>
+        <div class="persona-card fade-in">
+          <span class="persona-icon" aria-hidden="true">👨‍👩‍👧</span>
+          <span>Parents who want smarter controls than Screen Time</span>
+        </div>
+        <div class="persona-card fade-in">
+          <span class="persona-icon" aria-hidden="true">🧘</span>
+          <span>Anyone on a digital detox tired of screen time apps that are too easy to bypass</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Section 7: Privacy & CTA
+  ============================================================ -->
+  <section class="cta-section">
+    <div class="container">
+      <h2 class="fade-in">No account. No tracking.<br>No subscription.</h2>
+      <p class="cta-body fade-in">
+        Scrolless works entirely on your device. No data leaves your phone.
+        You pay once and own it forever.
+      </p>
+      <p class="cta-compat fade-in">Works on iPhone, iPad, and Mac. Requires Safari.</p>
+      <a
+        href="https://apps.apple.com/us/app/scrolless-feed-blocker/id6758870122"
+        class="app-store-badge fade-in"
+        aria-label="Download Scrolless on the App Store"
+      >
+        <div class="badge-svg-wrap">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+          </svg>
+          <span>
+            <span class="badge-sub">Download on the</span>
+            <span class="badge-main">App Store</span>
+          </span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Footer
+  ============================================================ -->
+  <footer>
+    <p>Made by <a href="https://festudio.net">Fe Studio</a></p>
+    <p>
+      <a href="https://festudio.net/scrolless/privacy">Privacy Policy</a>
+      &nbsp;·&nbsp;
+      <a href="mailto:jared@festudio.net">Support</a>
+    </p>
+  </footer>
+
+  <!-- ============================================================
+       JS: Intersection Observer for fade-in
+  ============================================================ -->
+  <script>
+    (function () {
+      var els = document.querySelectorAll('.fade-in');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('visible'); });
+        return;
+      }
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      els.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
+
+</body>
+</html>
