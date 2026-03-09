@@ -1,311 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scrolless - Block the feed, not the forum</title>
-    <style>
-        :root {
-            --bg: #0d0d0d;
-            --surface: #1a1a1a;
-            --border: #2a2a2a;
-            --text: #e8e8e8;
-            --muted: #888;
-            --accent: #4a9eff;
-            --accent-hover: #6bb3ff;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+  <title>Fe Studio — Independent iOS Apps</title>
+  <meta name="description" content="Fe Studio makes focused, no-nonsense iOS apps. No subscriptions, no ads, no tracking. Pay once, own forever.">
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
+  <!-- Open Graph -->
+  <meta property="og:title" content="Fe Studio — Independent iOS Apps">
+  <meta property="og:description" content="Fe Studio makes focused, no-nonsense iOS apps. No subscriptions, no ads, no tracking.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://festudio.net">
 
-        a { color: var(--accent); text-decoration: none; }
-        a:hover { color: var(--accent-hover); }
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 1.5rem 2rem;
-        }
+  <style>
+    :root {
+      --hero-dark: #0D1420;
+      --light-bg: #F5F7FA;
+      --text-dark: #1B2A35;
+      --text-light: #FFFFFF;
+      --text-muted: #6B7280;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --radius: 14px;
+      --transition: 0.2s ease;
+    }
 
-        nav .logo {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--text);
-        }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-        }
+    body {
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background: var(--hero-dark);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 64px 24px;
+    }
 
-        nav ul a { color: var(--muted); font-size: 0.9rem; }
-        nav ul a:hover { color: var(--text); }
+    .studio-label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.35);
+      margin-bottom: 12px;
+      text-align: center;
+    }
 
-        .hero {
-            text-align: center;
-            padding: 6rem 2rem 4rem;
-            max-width: 700px;
-            margin: 0 auto;
-        }
+    h1 {
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 700;
+      color: var(--text-light);
+      letter-spacing: -0.02em;
+      text-align: center;
+      margin-bottom: 12px;
+    }
 
-        .hero h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 1rem;
-        }
+    .tagline {
+      font-size: clamp(15px, 2vw, 17px);
+      color: rgba(255, 255, 255, 0.45);
+      text-align: center;
+      max-width: 440px;
+      margin-bottom: 56px;
+      line-height: 1.6;
+    }
 
-        .hero .tagline {
-            font-size: 1.25rem;
-            color: var(--muted);
-            margin-bottom: 2rem;
-        }
+    .apps {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      width: 100%;
+      max-width: 720px;
+      margin-bottom: 56px;
+    }
 
-        .hero .cta {
-            display: inline-block;
-            background: var(--accent);
-            color: #fff;
-            padding: 0.75rem 2rem;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: background 0.2s;
-        }
+    @media (max-width: 560px) {
+      .apps {
+        grid-template-columns: 1fr;
+      }
+    }
 
-        .hero .cta:hover { background: var(--accent-hover); color: #fff; }
+    .app-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius);
+      padding: 28px;
+      text-decoration: none;
+      display: block;
+      transition: background var(--transition), border-color var(--transition), transform var(--transition);
+    }
 
-        section {
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-        }
+    .app-card:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
 
-        section h2 {
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-        }
+    .app-card-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
 
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.5rem;
-        }
+    .app-card.scrolless .app-card-eyebrow { color: #7EB3E3; }
+    .app-card.openbookshelf .app-card-eyebrow { color: #7EC8E3; }
 
-        .feature-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-        }
+    .app-card h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-light);
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
 
-        .feature-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
-        .feature-card p { color: var(--muted); font-size: 0.95rem; }
+    .app-card p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
 
-        .platforms {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-top: 1rem;
-        }
+    .app-card-link {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.35);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: color var(--transition);
+    }
 
-        .platforms span {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 0.4rem 0.9rem;
-            font-size: 0.85rem;
-            color: var(--muted);
-        }
+    .app-card:hover .app-card-link {
+      color: rgba(255, 255, 255, 0.7);
+    }
 
-        .contact-form {
-            max-width: 500px;
-        }
+    footer {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.2);
+      text-align: center;
+    }
 
-        .contact-form label {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--muted);
-            margin-bottom: 0.3rem;
-            margin-top: 1rem;
-        }
+    footer a {
+      color: rgba(255, 255, 255, 0.3);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
 
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 0.65rem 0.75rem;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: var(--text);
-            font-family: inherit;
-            font-size: 0.95rem;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            border-color: var(--accent);
-        }
-
-        .contact-form textarea { resize: vertical; min-height: 120px; }
-
-        .contact-form button {
-            margin-top: 1.25rem;
-            background: var(--accent);
-            color: #fff;
-            border: none;
-            padding: 0.7rem 2rem;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .contact-form button:hover { background: var(--accent-hover); }
-
-        .privacy { color: var(--muted); font-size: 0.95rem; }
-        .privacy h3 { color: var(--text); font-size: 1.1rem; margin: 1.5rem 0 0.5rem; }
-        .privacy h3:first-child { margin-top: 0; }
-        .privacy p { margin-bottom: 0.75rem; }
-
-        footer {
-            text-align: center;
-            padding: 3rem 2rem;
-            color: var(--muted);
-            font-size: 0.85rem;
-            border-top: 1px solid var(--border);
-            max-width: 960px;
-            margin: 2rem auto 0;
-        }
-
-        @media (max-width: 600px) {
-            .hero h1 { font-size: 2rem; }
-            .hero { padding: 4rem 1.5rem 3rem; }
-            nav ul { gap: 1rem; }
-        }
-    </style>
+    footer a:hover {
+      color: rgba(255, 255, 255, 0.6);
+    }
+  </style>
 </head>
 <body>
 
-<nav>
-    <div class="logo">Scrolless</div>
-    <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="#privacy">Privacy</a></li>
-    </ul>
-</nav>
+  <p class="studio-label">Fe Studio</p>
+  <h1>Simple software.<br>No noise.</h1>
+  <p class="tagline">Independent iOS apps built around doing one thing well. No subscriptions, no ads, no tracking.</p>
 
-<div class="hero">
-    <h1>Block the feed,<br>not the forum.</h1>
-    <p class="tagline">A Safari extension that removes algorithmic feeds from social media &mdash; so you stay connected, not hooked.</p>
-    <a class="cta" href="https://apps.apple.com" target="_blank">Download on the App Store</a>
-</div>
+  <div class="apps">
+    <a href="/scrolless" class="app-card scrolless">
+      <p class="app-card-eyebrow">Safari Extension · iOS &amp; Mac</p>
+      <h2>Scrolless</h2>
+      <p>Block algorithmic feeds in Safari. Keep your messages, search, and posting. Stop doomscrolling.</p>
+      <span class="app-card-link">View app →</span>
+    </a>
+    <a href="/openbookshelf" class="app-card openbookshelf">
+      <p class="app-card-eyebrow">Book Tracker · iPhone &amp; iPad</p>
+      <h2>OpenBookshelf</h2>
+      <p>Track what you read without the noise. Goodreads import, iCloud sync. Pay once, yours forever.</p>
+      <span class="app-card-link">View app →</span>
+    </a>
+  </div>
 
-<section id="about">
-    <h2>How it works</h2>
-    <div class="features">
-        <div class="feature-card">
-            <h3>Block algorithmic feeds</h3>
-            <p>Scrolless hides the infinite feeds on sites like Reddit, Instagram, YouTube, and more &mdash; right inside Safari.</p>
-        </div>
-        <div class="feature-card">
-            <h3>Keep what matters</h3>
-            <p>Allow-list specific pages like subreddits, YouTube subscriptions, or profiles so you can still browse intentionally.</p>
-        </div>
-        <div class="feature-card">
-            <h3>No off switch</h3>
-            <p>Want to undo a block? There's a 30-minute waiting period, stopping impulsive decisions to re-enable feeds.</p>
-        </div>
-        <div class="feature-card">
-            <h3>Custom rules</h3>
-            <p>Add your own platforms and define blocking &amp; allow rules with simple URL patterns.</p>
-        </div>
-        <div class="feature-card">
-            <h3>Works on iOS &amp; Mac</h3>
-            <p>Install once and get feed-blocking across all your Apple devices through Safari.</p>
-        </div>
-        <div class="feature-card">
-            <h3>Pre-configured for 9+ sites</h3>
-            <p>Out of the box support for Reddit, Instagram, TikTok, X, YouTube, Facebook, LinkedIn, Threads, and Bluesky.</p>
-        </div>
-    </div>
-
-    <h2 style="margin-top: 3rem;">Supported platforms</h2>
-    <div class="platforms">
-        <span>Reddit</span>
-        <span>Instagram</span>
-        <span>TikTok</span>
-        <span>Twitter / X</span>
-        <span>YouTube</span>
-        <span>Facebook</span>
-        <span>LinkedIn</span>
-        <span>Threads</span>
-        <span>Bluesky</span>
-    </div>
-</section>
-
-<section id="contact">
-    <h2>Contact</h2>
-    <form class="contact-form" action="https://formsubmit.co/jared@festudio.net" method="POST">
-        <input type="hidden" name="_subject" value="Scrolless website contact">
-        <input type="hidden" name="_captcha" value="false">
-
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" required>
-
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="message">Message</label>
-        <textarea id="message" name="message" required></textarea>
-
-        <button type="submit">Send message</button>
-    </form>
-</section>
-
-<section id="privacy">
-    <h2>Privacy Policy</h2>
-    <div class="privacy">
-        <p><em>Last updated: February 6, 2026</em></p>
-
-        <h3>Overview</h3>
-        <p>Scrolless is designed with privacy at its core. The extension operates entirely on your device and does not collect, transmit, or store any personal data.</p>
-
-        <h3>Data collection</h3>
-        <p>Scrolless does not collect any personal information. Your browsing activity, blocking rules, and app settings remain on your device and are never sent to any server.</p>
-
-        <h3>Safari extension</h3>
-        <p>The Safari extension only accesses web page content to apply your blocking and allow rules. It does not read, log, or transmit any page content or browsing history.</p>
-
-        <h3>Analytics</h3>
-        <p>Scrolless does not use any analytics, tracking, or crash-reporting services.</p>
-
-        <h3>Third parties</h3>
-        <p>No data is shared with third parties. The app has no server-side component and makes no network requests.</p>
-
-        <h3>Contact</h3>
-        <p>If you have questions about this policy, contact us at <a href="mailto:jared@festudio.net">jared@festudio.net</a>.</p>
-    </div>
-</section>
-
-<footer>
-    &copy; 2026 FE Studio. All rights reserved.
-</footer>
+  <footer>
+    <a href="mailto:jared@festudio.net">jared@festudio.net</a>
+  </footer>
 
 </body>
 </html>

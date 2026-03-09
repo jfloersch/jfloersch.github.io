@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>OpenBookshelf — A Minimalist Book Tracker for iOS</title>
+  <meta name="description" content="Track your books without the noise. No subscriptions, no ads, no social network. Import from Goodreads, sync with iCloud. $2.99 once, yours forever.">
+  <meta name="keywords" content="book tracker, book tracking app, ios book tracker, reading tracker, goodreads alternative, minimalist book tracker, icloud book sync, no subscription book app, open library, reading list app">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="OpenBookshelf — A Minimalist Book Tracker for iOS">
+  <meta property="og:description" content="Track your books without the noise. No subscriptions, no ads, no social network. $2.99 once, yours forever.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://festudio.net/openbookshelf">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OpenBookshelf — A Minimalist Book Tracker for iOS">
+  <meta name="twitter:description" content="Track your books without the noise. No subscriptions, no ads, no social network. $2.99 once, yours forever.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="app-icon.png">
+  <link rel="apple-touch-icon" href="app-icon.png">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "OpenBookshelf",
+    "operatingSystem": "iOS",
+    "applicationCategory": "LifestyleApplication",
+    "description": "A clean, focused book tracker for readers who want to organize what they read — without subscriptions, ads, or a social network. Import from Goodreads, sync with iCloud.",
+    "url": "https://festudio.net/openbookshelf",
+    "downloadUrl": "https://apps.apple.com/us/app/openbookshelf/id6759491266",
+    "author": {
+      "@type": "Organization",
+      "name": "Fe Studio",
+      "url": "https://festudio.net"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "2.99",
+      "priceCurrency": "USD",
+      "description": "Free 7-day trial, then $2.99 one-time purchase — no subscription"
+    },
+    "featureList": [
+      "Search millions of books via Open Library",
+      "Goodreads import",
+      "iCloud sync across devices",
+      "No account, no tracking",
+      "Pay once, own forever",
+      "Minimalist design"
+    ]
+  }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       CSS Custom Properties
+    ============================================================ */
+    :root {
+      --hero-dark: #0D1F2A;
+      --dark-bg: #1B3A4B;
+      --light-bg: #F5F7FA;
+      --warm-bg: #EBF3F7;
+      --brand-navy: #1B3A4B;
+      --text-dark: #1B2A35;
+      --text-light: #FFFFFF;
+      --text-muted: #6B7280;
+      --teal-accent: #7EC8E3;
+
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+      --radius: 12px;
+      --radius-sm: 8px;
+      --transition: 0.2s ease;
+    }
+
+    /* ============================================================
+       Reset & Base
+    ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background: var(--light-bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      color: var(--brand-navy);
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* ============================================================
+       Layout Helpers
+    ============================================================ */
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .section {
+      padding: 80px 0;
+    }
+
+    @media (max-width: 768px) {
+      .section {
+        padding: 56px 0;
+      }
+    }
+
+    /* ============================================================
+       Section 1: Hero
+    ============================================================ */
+    .hero {
+      background: var(--hero-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(27, 58, 75, 0.5) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(126, 200, 227, 0.07) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal-accent);
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 7vw, 72px);
+      font-weight: 700;
+      color: var(--text-light);
+      line-height: 1.1;
+      margin-bottom: 28px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(17px, 2.5vw, 22px);
+      color: rgba(255, 255, 255, 0.72);
+      max-width: 680px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+
+    .app-store-badge {
+      display: inline-block;
+      margin-bottom: 20px;
+      transition: opacity var(--transition), transform var(--transition);
+    }
+
+    .app-store-badge:hover {
+      opacity: 0.85;
+      transform: translateY(-2px);
+    }
+
+    .app-store-badge:focus-visible {
+      outline: 3px solid var(--teal-accent);
+      outline-offset: 4px;
+      border-radius: 8px;
+    }
+
+    .badge-svg-wrap {
+      display: inline-flex;
+      align-items: center;
+      background: #000;
+      color: #fff;
+      border-radius: 10px;
+      padding: 10px 20px;
+      gap: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      border: 1.5px solid rgba(255,255,255,0.2);
+    }
+
+    .badge-svg-wrap svg {
+      width: 24px;
+      height: 24px;
+      fill: #fff;
+      flex-shrink: 0;
+    }
+
+    .badge-svg-wrap span {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .badge-svg-wrap .badge-sub {
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      opacity: 0.85;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+
+    .badge-svg-wrap .badge-main {
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .hero-note {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.45);
+      margin-top: 4px;
+    }
+
+    /* ============================================================
+       Section 2: How It Works
+    ============================================================ */
+    .how-it-works {
+      background: var(--light-bg);
+    }
+
+    .section-label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--brand-navy);
+      margin-bottom: 12px;
+    }
+
+    .how-it-works h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .how-it-works .lead {
+      font-size: clamp(16px, 2vw, 18px);
+      color: var(--text-muted);
+      max-width: 640px;
+      margin-bottom: 56px;
+    }
+
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .step-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+    }
+
+    .step-card h3 {
+      font-size: clamp(18px, 2.2vw, 22px);
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .step-card p {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ============================================================
+       Section 3: Anti-features
+    ============================================================ */
+    .anti-features {
+      background: var(--warm-bg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .anti-features::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(27, 58, 75, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .anti-features-inner {
+      max-width: 680px;
+    }
+
+    .anti-features h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .anti-features .rule-text {
+      font-size: clamp(16px, 2vw, 18px);
+      color: var(--text-dark);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    .anti-features .rule-text:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ============================================================
+       Section 4: Feature grid
+    ============================================================ */
+    .differentiators {
+      background: #fff;
+    }
+
+    .differentiators h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 48px;
+      letter-spacing: -0.02em;
+    }
+
+    .diff-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .diff-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .diff-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .diff-card {
+      background: var(--light-bg);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .diff-card .diff-icon {
+      font-size: 28px;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .diff-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .diff-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ============================================================
+       Section 5: Perfect For
+    ============================================================ */
+    .perfect-for {
+      background: var(--light-bg);
+      position: relative;
+    }
+
+    .perfect-for::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(27, 58, 75, 0.03) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .perfect-for h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 40px;
+      letter-spacing: -0.02em;
+    }
+
+    .personas-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .personas-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .persona-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      font-size: 15px;
+      color: var(--text-dark);
+      line-height: 1.5;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .persona-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ============================================================
+       Section 6: CTA
+    ============================================================ */
+    .cta-section {
+      background: var(--dark-bg);
+      text-align: center;
+      padding: 100px 24px;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      color: var(--text-light);
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .cta-section .cta-body {
+      font-size: clamp(16px, 2vw, 18px);
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 540px;
+      margin: 0 auto 12px;
+      line-height: 1.7;
+    }
+
+    .cta-section .cta-compat {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.45);
+      margin-bottom: 36px;
+    }
+
+    /* ============================================================
+       Footer
+    ============================================================ */
+    footer {
+      background: var(--hero-dark);
+      padding: 32px 24px;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    footer p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.4);
+      line-height: 2;
+    }
+
+    footer a {
+      color: rgba(255, 255, 255, 0.55);
+      transition: color var(--transition);
+    }
+
+    footer a:hover {
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* ============================================================
+       Scroll-fade animations
+    ============================================================ */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================================
+       Utility
+    ============================================================ */
+    .text-center { text-align: center; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       Section 1: Hero
+  ============================================================ -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-eyebrow">Book Tracker for iPhone &amp; iPad</span>
+      <h1>Your books.<br>Without the noise.</h1>
+      <p class="hero-subtitle">
+        OpenBookshelf is a clean, focused book tracker for readers who want
+        to organize what they read — not be sold a subscription, shown ads,
+        or pushed into a social network.
+      </p>
+      <a
+        href="https://apps.apple.com/us/app/openbookshelf/id6759491266"
+        class="app-store-badge"
+        aria-label="Download OpenBookshelf on the App Store"
+      >
+        <div class="badge-svg-wrap">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+          </svg>
+          <span>
+            <span class="badge-sub">Download on the</span>
+            <span class="badge-main">App Store</span>
+          </span>
+        </div>
+      </a>
+      <p class="hero-note">Free 7-day trial · $2.99 one-time purchase · No account · No tracking · No subscription.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Section 2: How It Works
+  ============================================================ -->
+  <section class="section how-it-works">
+    <div class="container">
+      <p class="section-label fade-in">How it works</p>
+      <h2 class="fade-in">Track your reading in three taps.</h2>
+      <p class="lead fade-in">
+        Search for a book, add it to your shelf, mark it as read. That's it.
+        No onboarding wizard, no account creation, no tutorial. Just your books.
+      </p>
+
+      <div class="steps-list">
+        <div class="step-card fade-in">
+          <h3>Build your library</h3>
+          <p>Search millions of books powered by Open Library — the world's largest open book database. Add books instantly by title, author, or ISBN. No proprietary database, no lock-in.</p>
+        </div>
+        <div class="step-card fade-in">
+          <h3>Import from Goodreads</h3>
+          <p>Bring your entire reading history with you. Export your Goodreads data and import it into OpenBookshelf in seconds. Keep your shelves, your ratings, your reading dates — without starting over.</p>
+        </div>
+        <div class="step-card fade-in">
+          <h3>Sync across devices</h3>
+          <p>Your library stays up to date on every device automatically with iCloud. Add a book on your iPhone, see it on your iPad. No account required — it just works.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Section 3: Anti-features
+  ============================================================ -->
+  <section class="section anti-features">
+    <div class="container">
+      <div class="anti-features-inner">
+        <h2 class="fade-in">What you won't find here.</h2>
+        <p class="rule-text fade-in">
+          No algorithmic recommendations. No social feed. No reading challenges
+          designed to make you feel guilty. No ads. No behavioral tracking.
+          No subscription that charges you monthly to maintain a book list.
+        </p>
+        <p class="rule-text fade-in">
+          OpenBookshelf does one thing well: it helps you keep track of what
+          you've read, what you're reading, and what you want to read next.
+          Nothing more. Nothing less.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Section 4: Feature grid
+  ============================================================ -->
+  <section class="section differentiators">
+    <div class="container">
+      <p class="section-label fade-in">Why OpenBookshelf</p>
+      <h2 class="fade-in">Built for readers, not engagement metrics.</h2>
+
+      <div class="diff-grid">
+        <div class="diff-card fade-in">
+          <span class="diff-icon" aria-hidden="true">📚</span>
+          <h3>Powered by Open Library</h3>
+          <p>Search millions of books from the world's largest open catalog. No proprietary database.</p>
+        </div>
+        <div class="diff-card fade-in">
+          <span class="diff-icon" aria-hidden="true">📥</span>
+          <h3>Goodreads import</h3>
+          <p>Bring your entire library over. Ratings, shelves, dates — all of it.</p>
+        </div>
+        <div class="diff-card fade-in">
+          <span class="diff-icon" aria-hidden="true">☁️</span>
+          <h3>iCloud sync</h3>
+          <p>Your library on every device, automatically. No account needed.</p>
+        </div>
+        <div class="diff-card fade-in">
+          <span class="diff-icon" aria-hidden="true">🔒</span>
+          <h3>No account, no tracking</h3>
+          <p>Everything stays on your device. No data collection, no sign-up, ever.</p>
+        </div>
+        <div class="diff-card fade-in">
+          <span class="diff-icon" aria-hidden="true">💳</span>
+          <h3>Pay once, own it forever</h3>
+          <p>$2.99 after a free 7-day trial. No subscription, no ads, no upsells.</p>
+        </div>
+        <div class="diff-card fade-in">
+          <span class="diff-icon" aria-hidden="true">✨</span>
+          <h3>Minimalist by design</h3>
+          <p>No clutter, no gamification, no features you didn't ask for. Just your books.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Section 5: Perfect For
+  ============================================================ -->
+  <section class="section perfect-for">
+    <div class="container">
+      <h2 class="fade-in">Perfect for</h2>
+      <div class="personas-grid">
+        <div class="persona-card fade-in">
+          <span class="persona-icon" aria-hidden="true">📖</span>
+          <span>Readers who left Goodreads and want something simpler</span>
+        </div>
+        <div class="persona-card fade-in">
+          <span class="persona-icon" aria-hidden="true">🔇</span>
+          <span>Anyone tired of book apps with social networks bolted on</span>
+        </div>
+        <div class="persona-card fade-in">
+          <span class="persona-icon" aria-hidden="true">💰</span>
+          <span>People who refuse to pay a subscription for a book list</span>
+        </div>
+        <div class="persona-card fade-in">
+          <span class="persona-icon" aria-hidden="true">📱</span>
+          <span>Apple users who want native iCloud sync across devices</span>
+        </div>
+        <div class="persona-card fade-in">
+          <span class="persona-icon" aria-hidden="true">🎒</span>
+          <span>Students and casual readers who just want to track what they've read</span>
+        </div>
+        <div class="persona-card fade-in">
+          <span class="persona-icon" aria-hidden="true">🧘</span>
+          <span>Minimalists who believe less software is better software</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Section 6: CTA
+  ============================================================ -->
+  <section class="cta-section">
+    <div class="container">
+      <h2 class="fade-in">No account. No tracking.<br>No subscription.</h2>
+      <p class="cta-body fade-in">
+        OpenBookshelf works entirely on your device. No data leaves your phone.
+        You pay once and own it forever.
+      </p>
+      <p class="cta-compat fade-in">Works on iPhone and iPad. Syncs via iCloud.</p>
+      <a
+        href="https://apps.apple.com/us/app/openbookshelf/id6759491266"
+        class="app-store-badge fade-in"
+        aria-label="Download OpenBookshelf on the App Store"
+      >
+        <div class="badge-svg-wrap">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+          </svg>
+          <span>
+            <span class="badge-sub">Download on the</span>
+            <span class="badge-main">App Store</span>
+          </span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Footer
+  ============================================================ -->
+  <footer>
+    <p>Made by <a href="https://festudio.net">Fe Studio</a></p>
+    <p>
+      <a href="/openbookshelf/privacy">Privacy Policy</a>
+      &nbsp;·&nbsp;
+      <a href="mailto:support@festudio.net">Support</a>
+    </p>
+  </footer>
+
+  <!-- ============================================================
+       JS: Intersection Observer for fade-in
+  ============================================================ -->
+  <script>
+    (function () {
+      var els = document.querySelectorAll('.fade-in');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('visible'); });
+        return;
+      }
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      els.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
+
+</body>
+</html>
