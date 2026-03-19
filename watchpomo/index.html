@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>WatchPomo — Watch-First Pomodoro Timer for Apple Watch</title>
+  <meta name="description" content="The only Pomodoro timer built for your wrist. Start focus sessions from Apple Watch, track progress with 3 live complications, and keep your phone out of sight. Try 4 sessions free — $2.99 forever.">
+  <meta name="keywords" content="pomodoro,focus timer,apple watch,watch app,productivity,study timer,concentration,deep work,pomodoro technique,minimalist timer,wrist timer,watchos,complications">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="WatchPomo — Watch-First Pomodoro Timer for Apple Watch">
+  <meta property="og:description" content="The only Pomodoro timer built for your wrist. Start focus sessions from Apple Watch, track live complications, and keep your phone where it belongs. $2.99 forever.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://festudio.net/watchpomo">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="WatchPomo — Watch-First Pomodoro Timer for Apple Watch">
+  <meta name="twitter:description" content="The only Pomodoro timer built for your wrist. Start focus sessions from Apple Watch, track live complications, keep your phone out of sight. $2.99 forever.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="app-icon.png">
+  <link rel="apple-touch-icon" href="app-icon.png">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "WatchPomo",
+    "operatingSystem": "watchOS, iOS",
+    "applicationCategory": "ProductivityApplication",
+    "description": "A minimalist, watch-first Pomodoro timer built for Apple Watch. Start focus sessions from your wrist, track progress with 3 live complications, and keep your phone out of sight during deep work.",
+    "url": "https://festudio.net/watchpomo",
+    "author": {
+      "@type": "Organization",
+      "name": "Fe Studio",
+      "url": "https://festudio.net"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "2.99",
+      "priceCurrency": "USD",
+      "description": "4 free Pomodoro sessions, then $2.99 one-time purchase — no subscription"
+    },
+    "featureList": [
+      "Watch-first Pomodoro timer",
+      "3 live watch face complications",
+      "Start sessions from Apple Watch",
+      "Haptic break notifications",
+      "iPhone stats companion app",
+      "No subscription, no ads, no tracking"
+    ]
+  }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       CSS Custom Properties
+    ============================================================ */
+    :root {
+      --hero-dark: #120D0B;
+      --dark-bg: #2A1A14;
+      --light-bg: #F5F7FA;
+      --warm-bg: #FFF1EE;
+      --brand-dark: #1F1410;
+      --text-dark: #1F1410;
+      --text-light: #FFFFFF;
+      --text-muted: #6B7280;
+      --red-accent: #D4523E;
+
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+      --radius: 12px;
+      --radius-sm: 8px;
+      --transition: 0.2s ease;
+    }
+
+    /* ============================================================
+       Reset & Base
+    ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background: var(--light-bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      color: var(--brand-dark);
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* ============================================================
+       Layout Helpers
+    ============================================================ */
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .section {
+      padding: 80px 0;
+    }
+
+    @media (max-width: 768px) {
+      .section {
+        padding: 56px 0;
+      }
+    }
+
+    /* ============================================================
+       Section 1: Hero
+    ============================================================ */
+    .hero {
+      background: var(--hero-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(42, 26, 20, 0.6) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(212, 82, 62, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red-accent);
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 7vw, 72px);
+      font-weight: 700;
+      color: var(--text-light);
+      line-height: 1.1;
+      margin-bottom: 28px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(17px, 2.5vw, 22px);
+      color: rgba(255, 255, 255, 0.72);
+      max-width: 680px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+
+    .app-store-badge {
+      display: inline-block;
+      margin-bottom: 20px;
+      transition: opacity var(--transition), transform var(--transition);
+    }
+
+    .app-store-badge:hover {
+      opacity: 0.85;
+      transform: translateY(-2px);
+    }
+
+    .app-store-badge:focus-visible {
+      outline: 3px solid var(--red-accent);
+      outline-offset: 4px;
+      border-radius: 8px;
+    }
+
+    .badge-svg-wrap {
+      display: inline-flex;
+      align-items: center;
+      background: #000;
+      color: #fff;
+      border-radius: 10px;
+      padding: 10px 20px;
+      gap: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      border: 1.5px solid rgba(255,255,255,0.2);
+    }
+
+    .badge-svg-wrap svg {
+      width: 24px;
+      height: 24px;
+      fill: #fff;
+      flex-shrink: 0;
+    }
+
+    .badge-svg-wrap span {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .badge-svg-wrap .badge-sub {
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      opacity: 0.85;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+
+    .badge-svg-wrap .badge-main {
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .hero-note {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.45);
+      margin-top: 4px;
+    }
+
+    /* ============================================================
+       Section 2: How It Works
+    ============================================================ */
+    .how-it-works {
+      background: var(--light-bg);
+    }
+
+    .section-label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red-accent);
+      margin-bottom: 12px;
+    }
+
+    .how-it-works h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .how-it-works .lead {
+      font-size: clamp(16px, 2vw, 18px);
+      color: var(--text-muted);
+      max-width: 640px;
+      margin-bottom: 56px;
+    }
+
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .step-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+    }
+
+    .step-card h3 {
+      font-size: clamp(18px, 2.2vw, 22px);
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .step-card p {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ============================================================
+       Section 3: Anti-features
+    ============================================================ */
+    .anti-features {
+      background: var(--warm-bg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .anti-features::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(212, 82, 62, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .anti-features-inner {
+      max-width: 680px;
+    }
+
+    .anti-features h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .anti-features .rule-text {
+      font-size: clamp(16px, 2vw, 18px);
+      color: var(--text-dark);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    .anti-features .rule-text:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ============================================================
+       Section 4: Feature grid
+    ============================================================ */
+    .differentiators {
+      background: #fff;
+    }
+
+    .differentiators h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 48px;
+      letter-spacing: -0.02em;
+    }
+
+    .diff-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .diff-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .diff-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .diff-card {
+      background: var(--light-bg);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .diff-card .diff-icon {
+      font-size: 28px;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .diff-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .diff-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ============================================================
+       Section 5: Perfect For
+    ============================================================ */
+    .perfect-for {
+      background: var(--light-bg);
+      position: relative;
+    }
+
+    .perfect-for::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(212, 82, 62, 0.03) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .perfect-for h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 40px;
+      letter-spacing: -0.02em;
+    }
+
+    .personas-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .personas-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .persona-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      font-size: 15px;
+      color: var(--text-dark);
+      line-height: 1.5;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .persona-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ============================================================
+       Section 6: CTA
+    ============================================================ */
+    .cta-section {
+      background: var(--dark-bg);
+      text-align: center;
+      padding: 100px 24px;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      color: var(--text-light);
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .cta-section .cta-body {
+      font-size: clamp(16px, 2vw, 18px);
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 540px;
+      margin: 0 auto 12px;
+      line-height: 1.7;
+    }
+
+    .cta-section .cta-compat {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.45);
+      margin-bottom: 36px;
+    }
+
+    /* ============================================================
+       Footer
+    ============================================================ */
+    footer {
+      background: var(--hero-dark);
+      padding: 32px 24px;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    footer p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.4);
+      line-height: 2;
+    }
+
+    footer a {
+      color: rgba(255, 255, 255, 0.55);
+      transition: color var(--transition);
+    }
+
+    footer a:hover {
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* ============================================================
+       Scroll-fade animations
+    ============================================================ */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================================
+       Utility
+    ============================================================ */
+    .text-center { text-align: center; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       Section 1: Hero
+  ============================================================ -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-eyebrow">Watch-First Pomodoro Timer for Apple Watch</span>
+      <h1>Your focus timer<br>lives on your wrist.</h1>
+      <p class="hero-subtitle">
+        WatchPomo is the only Pomodoro timer built for Apple Watch — not bolted onto one.
+        Start a focus session from your wrist, track your progress through live complications,
+        and keep your phone where it belongs: out of sight.
+      </p>
+      <a
+        href="https://apps.apple.com/us/app/watchpomo"
+        class="app-store-badge"
+        aria-label="Download WatchPomo on the App Store"
+      >
+        <div class="badge-svg-wrap">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+          </svg>
+          <span>
+            <span class="badge-sub">Download on the</span>
+            <span class="badge-main">App Store</span>
+          </span>
+        </div>
+      </a>
+      <p class="hero-note">4 sessions free · $2.99 one-time purchase · No subscription · No ads · No tracking.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Section 2: How It Works
+  ============================================================ -->
+  <section class="section how-it-works">
+    <div class="container">
+      <p class="section-label fade-in">How it works</p>
+      <h2 class="fade-in">Focus from your wrist. Not your phone.</h2>
+      <p class="lead fade-in">
+        Tap to start. Work for 25 minutes. Your watch taps you for a break.
+        The classic Pomodoro technique — designed from the ground up for Apple Watch.
+      </p>
+
+      <div class="steps-list">
+        <div class="step-card fade-in">
+          <h3>Start from Apple Watch</h3>
+          <p>Tap your watch to begin a focus session — no phone required. WatchPomo runs entirely on your wrist, so your phone stays in your bag, your pocket, or across the room exactly where it should be during deep work.</p>
+        </div>
+        <div class="step-card fade-in">
+          <h3>Stay in the zone with live complications</h3>
+          <p>Choose from 3 complication styles that update in real time on your watch face. See your remaining focus time, current session count, or break status with a glance — without opening the app or touching your phone.</p>
+        </div>
+        <div class="step-card fade-in">
+          <h3>Review your stats on iPhone</h3>
+          <p>Your iPhone companion app logs every session and shows your focus history. Check your productivity trends, adjust your session lengths, and change settings — but only when you choose to. The timer stays on your watch.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Section 3: Anti-features
+  ============================================================ -->
+  <section class="section anti-features">
+    <div class="container">
+      <div class="anti-features-inner">
+        <h2 class="fade-in">Your phone is the distraction.</h2>
+        <p class="rule-text fade-in">
+          The whole point of Pomodoro is focus. So why does every focus app make you
+          pick up the phone that's distracting you just to start a timer? WatchPomo
+          inverts this. Your wrist is the command center. Your phone is optional.
+        </p>
+        <p class="rule-text fade-in">
+          No task managers. No leaderboards. No gamification. No social features.
+          No subscription. Just a beautifully simple Pomodoro timer that does one
+          thing well — and does it from your watch face.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Section 4: Feature grid
+  ============================================================ -->
+  <section class="section differentiators">
+    <div class="container">
+      <p class="section-label fade-in">Why WatchPomo</p>
+      <h2 class="fade-in">Built for your wrist, not your screen time.</h2>
+
+      <div class="diff-grid">
+        <div class="diff-card fade-in">
+          <span class="diff-icon" aria-hidden="true">⌚</span>
+          <h3>Watch-first architecture</h3>
+          <p>Every competitor bolts Watch support onto a phone app. WatchPomo is built the other way around.</p>
+        </div>
+        <div class="diff-card fade-in">
+          <span class="diff-icon" aria-hidden="true">🕐</span>
+          <h3>3 live complications</h3>
+          <p>Your timer lives on your watch face. Three styles, all updating in real time — no need to open anything.</p>
+        </div>
+        <div class="diff-card fade-in">
+          <span class="diff-icon" aria-hidden="true">📳</span>
+          <h3>Haptic break nudges</h3>
+          <p>A gentle tap on your wrist when it's time to rest. No sound. No banner. Just your watch telling you to breathe.</p>
+        </div>
+        <div class="diff-card fade-in">
+          <span class="diff-icon" aria-hidden="true">📊</span>
+          <h3>Focus history on iPhone</h3>
+          <p>Your companion app logs sessions and shows productivity trends. Stats when you want them, silence when you don't.</p>
+        </div>
+        <div class="diff-card fade-in">
+          <span class="diff-icon" aria-hidden="true">💳</span>
+          <h3>Pay once, focus forever</h3>
+          <p>$2.99 one-time purchase after 4 free sessions. No subscription, no ads, no data collection. Yours forever.</p>
+        </div>
+        <div class="diff-card fade-in">
+          <span class="diff-icon" aria-hidden="true">✨</span>
+          <h3>Minimalist by design</h3>
+          <p>Focus periods, short breaks, long breaks. The classic technique — nothing added, nothing missing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Section 5: Perfect For
+  ============================================================ -->
+  <section class="section perfect-for">
+    <div class="container">
+      <h2 class="fade-in">Perfect for</h2>
+      <div class="personas-grid">
+        <div class="persona-card fade-in">
+          <span class="persona-icon" aria-hidden="true">⌚</span>
+          <span>Apple Watch owners who use their watch as a productivity tool and want to extend it to focus sessions</span>
+        </div>
+        <div class="persona-card fade-in">
+          <span class="persona-icon" aria-hidden="true">📵</span>
+          <span>Anyone who knows their phone is their biggest distraction and wants their focus timer off it</span>
+        </div>
+        <div class="persona-card fade-in">
+          <span class="persona-icon" aria-hidden="true">🎓</span>
+          <span>Students and knowledge workers who need structure for deep work without adding more screen time</span>
+        </div>
+        <div class="persona-card fade-in">
+          <span class="persona-icon" aria-hidden="true">😤</span>
+          <span>Pomodoro practitioners frustrated by bloated apps that add task management and gamification to a simple timer</span>
+        </div>
+        <div class="persona-card fade-in">
+          <span class="persona-icon" aria-hidden="true">💰</span>
+          <span>People sick of paying a monthly subscription for something that should cost $2.99 once</span>
+        </div>
+        <div class="persona-card fade-in">
+          <span class="persona-icon" aria-hidden="true">🧘</span>
+          <span>Minimalists who believe less software is better software — and that a timer should be a timer</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Section 6: CTA
+  ============================================================ -->
+  <section class="cta-section">
+    <div class="container">
+      <h2 class="fade-in">No subscription.<br>No phone required.</h2>
+      <p class="cta-body fade-in">
+        Try 4 full Pomodoro sessions completely free. If WatchPomo earns a place
+        on your watch face, unlock unlimited sessions for $2.99 — once, forever.
+      </p>
+      <p class="cta-compat fade-in">Requires Apple Watch. iPhone app included for stats &amp; settings.</p>
+      <a
+        href="https://apps.apple.com/us/app/watchpomo"
+        class="app-store-badge fade-in"
+        aria-label="Download WatchPomo on the App Store"
+      >
+        <div class="badge-svg-wrap">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+          </svg>
+          <span>
+            <span class="badge-sub">Download on the</span>
+            <span class="badge-main">App Store</span>
+          </span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Footer
+  ============================================================ -->
+  <footer>
+    <p>Made by <a href="https://festudio.net">Fe Studio</a></p>
+    <p>
+      <a href="/watchpomo/privacy">Privacy Policy</a>
+      &nbsp;·&nbsp;
+      <a href="mailto:support@festudio.net">Support</a>
+    </p>
+  </footer>
+
+  <!-- ============================================================
+       JS: Intersection Observer for fade-in
+  ============================================================ -->
+  <script>
+    (function () {
+      var els = document.querySelectorAll('.fade-in');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('visible'); });
+        return;
+      }
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      els.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
+
+</body>
+</html>
