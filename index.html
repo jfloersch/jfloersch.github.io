@@ -88,9 +88,20 @@
       margin-bottom: 56px;
     }
 
+    .app-card.watchpomo {
+      grid-column: 1 / -1;
+      max-width: 340px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
     @media (max-width: 560px) {
       .apps {
         grid-template-columns: 1fr;
+      }
+
+      .app-card.watchpomo {
+        max-width: none;
       }
     }
 
@@ -120,6 +131,7 @@
 
     .app-card.scrolless .app-card-eyebrow { color: #7EB3E3; }
     .app-card.openbookshelf .app-card-eyebrow { color: #7EC8E3; }
+    .app-card.watchpomo .app-card-eyebrow { color: #E38C7E; }
 
     .app-card h2 {
       font-size: 20px;
@@ -184,6 +196,12 @@
       <p class="app-card-eyebrow">Book Tracker · iPhone &amp; iPad</p>
       <h2>OpenBookshelf</h2>
       <p>Track what you read without the noise. Goodreads import, iCloud sync. Pay once, yours forever.</p>
+      <span class="app-card-link">View app →</span>
+    </a>
+    <a href="/watchpomo" class="app-card watchpomo">
+      <p class="app-card-eyebrow">Pomodoro Timer · Apple Watch</p>
+      <h2>WatchPomo</h2>
+      <p>Watch-first focus timer. Start sessions from your wrist, track progress with live complications. Keep your phone out of sight.</p>
       <span class="app-card-link">View app →</span>
     </a>
   </div>
