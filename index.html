@@ -4,211 +4,180 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Fe Studio — Independent iOS Apps</title>
-  <meta name="description" content="Fe Studio makes focused, no-nonsense iOS apps. No subscriptions, no ads, no tracking. Pay once, own forever.">
+  <title>Fe Studio — Mechatronics Engineering Consultancy</title>
+  <meta name="description" content="Fe Studio is a mechatronics engineering consultancy specializing in electromechanical product development. Mechanical design, electronics, firmware, controls, and system integration.">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Fe Studio — Independent iOS Apps">
-  <meta property="og:description" content="Fe Studio makes focused, no-nonsense iOS apps. No subscriptions, no ads, no tracking.">
+  <meta property="og:title" content="Fe Studio — Mechatronics Engineering Consultancy">
+  <meta property="og:description" content="Fe Studio takes your idea and turns it into hardware that works. Mechanical design, electronics, firmware, controls, and system integration under one roof.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://festudio.net">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --hero-dark: #0D1420;
-      --light-bg: #F5F7FA;
-      --text-dark: #1B2A35;
-      --text-light: #FFFFFF;
-      --text-muted: #6B7280;
-      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      --radius: 14px;
-      --transition: 0.2s ease;
-    }
-
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: var(--font);
-      font-size: 16px;
-      line-height: 1.6;
-      color: var(--text-dark);
-      background: var(--hero-dark);
-      -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 64px 24px;
-    }
-
-    .studio-label {
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.35);
-      margin-bottom: 12px;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: clamp(28px, 5vw, 44px);
-      font-weight: 700;
-      color: var(--text-light);
-      letter-spacing: -0.02em;
-      text-align: center;
-      margin-bottom: 12px;
-    }
-
-    .tagline {
-      font-size: clamp(15px, 2vw, 17px);
-      color: rgba(255, 255, 255, 0.45);
-      text-align: center;
-      max-width: 440px;
-      margin-bottom: 56px;
-      line-height: 1.6;
-    }
-
-    .apps {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      width: 100%;
-      max-width: 720px;
-      margin-bottom: 56px;
-    }
-
-    .app-card.watchpomo {
-      grid-column: 1 / -1;
-      max-width: 340px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    @media (max-width: 560px) {
-      .apps {
-        grid-template-columns: 1fr;
-      }
-
-      .app-card.watchpomo {
-        max-width: none;
-      }
-    }
-
-    .app-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: var(--radius);
-      padding: 28px;
-      text-decoration: none;
-      display: block;
-      transition: background var(--transition), border-color var(--transition), transform var(--transition);
-    }
-
-    .app-card:hover {
-      background: rgba(255, 255, 255, 0.09);
-      border-color: rgba(255, 255, 255, 0.15);
-      transform: translateY(-2px);
-    }
-
-    .app-card-eyebrow {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-
-    .app-card.scrolless .app-card-eyebrow { color: #7EB3E3; }
-    .app-card.openbookshelf .app-card-eyebrow { color: #7EC8E3; }
-    .app-card.watchpomo .app-card-eyebrow { color: #E38C7E; }
-
-    .app-card h2 {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--text-light);
-      margin-bottom: 8px;
-      letter-spacing: -0.01em;
-    }
-
-    .app-card p {
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.5);
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-
-    .app-card-link {
-      font-size: 13px;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.35);
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      transition: color var(--transition);
-    }
-
-    .app-card:hover .app-card-link {
-      color: rgba(255, 255, 255, 0.7);
-    }
-
-    footer {
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.2);
-      text-align: center;
-    }
-
-    footer a {
-      color: rgba(255, 255, 255, 0.3);
-      text-decoration: none;
-      transition: color var(--transition);
-    }
-
-    footer a:hover {
-      color: rgba(255, 255, 255, 0.6);
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <p class="studio-label">Fe Studio</p>
-  <h1>Simple software.<br>No noise.</h1>
-  <p class="tagline">Independent iOS apps built around doing one thing well. No subscriptions, no ads, no tracking.</p>
+  <!-- ============================================================
+       Navigation
+  ============================================================ -->
+  <header class="nav-wrapper" id="nav">
+    <nav class="nav-inner">
+      <a href="#" class="nav-wordmark">Fe Studio</a>
 
-  <div class="apps">
-    <a href="/scrolless" class="app-card scrolless">
-      <p class="app-card-eyebrow">Safari Extension · iOS &amp; Mac</p>
-      <h2>Scrolless</h2>
-      <p>Block algorithmic feeds in Safari. Keep your messages, search, and posting. Stop doomscrolling.</p>
-      <span class="app-card-link">View app →</span>
-    </a>
-    <a href="/openbookshelf" class="app-card openbookshelf">
-      <p class="app-card-eyebrow">Book Tracker · iPhone &amp; iPad</p>
-      <h2>OpenBookshelf</h2>
-      <p>Track what you read without the noise. Goodreads import, iCloud sync. Pay once, yours forever.</p>
-      <span class="app-card-link">View app →</span>
-    </a>
-    <a href="/watchpomo" class="app-card watchpomo">
-      <p class="app-card-eyebrow">Pomodoro Timer · Apple Watch</p>
-      <h2>WatchPomo</h2>
-      <p>Watch-first focus timer. Start sessions from your wrist, track progress with live complications. Keep your phone out of sight.</p>
-      <span class="app-card-link">View app →</span>
-    </a>
-  </div>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li class="nav-apps-item">
+          <button class="nav-apps-toggle" id="apps-toggle" aria-expanded="false" aria-haspopup="true">
+            Apps <span class="nav-caret" aria-hidden="true">▾</span>
+          </button>
+          <ul class="nav-apps-dropdown" id="apps-dropdown" role="menu">
+            <li role="menuitem"><a href="/scrolless">Scrolless</a></li>
+            <li role="menuitem"><a href="/openbookshelf">OpenBookshelf</a></li>
+            <li role="menuitem"><a href="/watchpomo">WatchPomo</a></li>
+          </ul>
+        </li>
+      </ul>
 
-  <footer>
-    <a href="mailto:jared@festudio.net">jared@festudio.net</a>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ============================================================
+         Hero
+    ============================================================ -->
+    <section class="hero" id="hero">
+      <div class="container">
+        <p class="hero-eyebrow">Mechatronics Engineering</p>
+        <h1 class="hero-headline">From concept to<br>working prototype.</h1>
+        <p class="hero-subtext">Fe Studio is a mechatronics engineering consultancy specializing in electromechanical product development. We take your idea — however early-stage — and turn it into hardware that works. Mechanical design, electronics, firmware, controls, and system integration under one roof.</p>
+        <a href="#contact" class="cta-btn">Get in touch</a>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         Services
+    ============================================================ -->
+    <section class="section services" id="services">
+      <div class="container">
+        <h2 class="section-heading reveal">What we do</h2>
+        <div class="services-grid">
+
+          <div class="service-card reveal">
+            <h3>Concept Development</h3>
+            <p>You have an idea and a problem to solve. We define the requirements, explore the solution space, and develop a design direction grounded in engineering reality.</p>
+          </div>
+
+          <div class="service-card reveal">
+            <h3>Prototyping &amp; System Integration</h3>
+            <p>Mechanical design, custom actuator development, embedded systems, sensor fusion, and control systems — designed together as a complete system, not handed off between specialists.</p>
+          </div>
+
+          <div class="service-card reveal">
+            <h3>Design for Manufacturability</h3>
+            <p>Prototype validated and ready to scale? We can prepare your design for production, selecting materials, processes, and tolerances that balance cost and performance.</p>
+          </div>
+
+          <div class="service-card reveal">
+            <h3>Analysis &amp; Simulation</h3>
+            <p>FEA, CFD, dynamic system modeling, Monte Carlo simulation, and controls analysis to de-risk designs before you cut metal.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         Portfolio
+    ============================================================ -->
+    <section class="section portfolio" id="portfolio">
+      <div class="container">
+        <h2 class="section-heading reveal">Selected work</h2>
+        <div class="portfolio-list">
+
+          <article class="portfolio-item reveal">
+            <div class="portfolio-content">
+              <h3>Robotic Musculoskeletal Simulators</h3>
+              <p>Anatomically accurate robotic systems that replicate human joint behavior for training physical therapists and U.S. Army combat medics. Designed the full electromechanical system — anatomical structure, custom actuators, and control systems — and managed a team through manufacturing and delivery.</p>
+              <p class="portfolio-disciplines">Actuator design · Controls · Mechanical design · Project management</p>
+            </div>
+          </article>
+
+          <article class="portfolio-item reveal">
+            <div class="portfolio-content">
+              <h3>Rehabilitation &amp; Industrial Exoskeletons</h3>
+              <p>Novel electromechanical actuators for upper and lower body exoskeletons. Nonlinear control system design and simulation in MATLAB and Python, sensor fusion for intuitive wearer interaction, and full prototype fabrication and evaluation.</p>
+              <p class="portfolio-disciplines">Nonlinear controls · Sensor fusion · Simulation · Prototyping</p>
+            </div>
+          </article>
+
+          <article class="portfolio-item reveal">
+            <div class="portfolio-content">
+              <h3>Transcatheter Mitral Valve Replacement</h3>
+              <p>Core contributor to one of the world's first transcatheter mitral valve replacements at Abbott Laboratories. Invented solutions to critical nitinol fatigue failure modes, leading to two patent applications and successful early human clinical trials.</p>
+              <p class="portfolio-disciplines">Mechanical design · Simulation · Image processing · R&amp;D</p>
+            </div>
+          </article>
+
+          <article class="portfolio-item reveal">
+            <div class="portfolio-content">
+              <h3>Low-Cost Oxygen Blender</h3>
+              <p>A bCPAP-compatible oxygen blender assembled from standard hospital supplies, replacing $2,000+ commercial devices at a $5 material cost. Now in clinical use in hospitals in Cambodia, Nigeria, and Thailand.</p>
+              <p class="portfolio-disciplines">Mechanical design · Low-cost engineering · Clinical collaboration</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         Contact
+    ============================================================ -->
+    <section class="section contact" id="contact">
+      <div class="container">
+        <div class="contact-inner reveal">
+          <div class="contact-photo-wrap">
+            <img src="IMG_0473.jpeg" alt="Jared Floersch, founder of Fe Studio" class="contact-photo">
+          </div>
+          <div class="contact-text">
+            <h2>Let's build something.</h2>
+            <p>If you have a product idea that needs engineering, reach out. Based in Minneapolis, available for remote work.</p>
+            <a href="mailto:jared@festudio.net" class="contact-email">jared@festudio.net</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       Footer
+  ============================================================ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="footer-copy">© <span id="year"></span> Fe Studio</span>
+      <nav class="footer-apps" aria-label="Apps">
+        <a href="/scrolless">Scrolless</a>
+        <a href="/openbookshelf">OpenBookshelf</a>
+        <a href="/watchpomo">WatchPomo</a>
+      </nav>
+      <a href="mailto:jared@festudio.net" class="footer-email">jared@festudio.net</a>
+    </div>
   </footer>
 
+  <script src="script.js"></script>
 </body>
 </html>
