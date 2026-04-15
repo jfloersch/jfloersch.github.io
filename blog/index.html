@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Blog — Fe Studio</title>
+  <meta name="description" content="Writing on mechatronics, engineering, and building things.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Blog — Fe Studio">
+  <meta property="og:description" content="Writing on mechatronics, engineering, and building things.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://festudio.net/blog">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <!-- ============================================================
+       Navigation
+  ============================================================ -->
+  <header class="nav-wrapper" id="nav">
+    <nav class="nav-inner">
+      <a href="/" class="nav-wordmark">Fe Studio</a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/#portfolio">Portfolio</a></li>
+        <li><a href="/blog" class="nav-active">Blog</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        <li class="nav-apps-item">
+          <button class="nav-apps-toggle" id="apps-toggle" aria-expanded="false" aria-haspopup="true">
+            Apps <span class="nav-caret" aria-hidden="true">▾</span>
+          </button>
+          <ul class="nav-apps-dropdown" id="apps-dropdown" role="menu">
+            <li role="menuitem"><a href="/scrolless">Scrolless</a></li>
+            <li role="menuitem"><a href="/openbookshelf">OpenBookshelf</a></li>
+            <li role="menuitem"><a href="/watchpomo">WatchPomo</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ============================================================
+         Blog listing
+    ============================================================ -->
+    <section class="blog-page">
+      <div class="container">
+        <div class="blog-page-header reveal">
+          <p class="hero-eyebrow">Writing</p>
+          <h1 class="blog-page-title">Blog</h1>
+          <p class="blog-page-desc">Notes on mechatronics, engineering, and building things.</p>
+        </div>
+
+        <div class="blog-list">
+          <a href="/blog/posts/quitting-the-modern-day-cigarette/" class="blog-post-item reveal">
+            <span class="blog-post-title">Quitting the Modern-Day Cigarette</span>
+            <span class="blog-post-meta">
+              <span class="blog-post-date">2026-04-15</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       Footer
+  ============================================================ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="footer-copy">© <span id="year"></span> Fe Studio</span>
+      <nav class="footer-apps" aria-label="Apps">
+        <a href="/scrolless">Scrolless</a>
+        <a href="/openbookshelf">OpenBookshelf</a>
+        <a href="/watchpomo">WatchPomo</a>
+      </nav>
+      <a href="mailto:jared@festudio.net" class="footer-email">jared@festudio.net</a>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>
