@@ -45,7 +45,7 @@
       "@type": "Offer",
       "price": "2.99",
       "priceCurrency": "USD",
-      "description": "48-hour free trial, then $2.99 one-time purchase — no subscription"
+      "description": "7-day free trial, then $2.99 one-time purchase — no subscription"
     },
     "featureList": [
       "Block algorithmic feeds on 8+ platforms",
@@ -61,9 +61,160 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
+    /* ============================================================
+       Site Navigation
+    ============================================================ */
+    :root {
+      --nav-height: 64px;
+      --nav-bg: rgba(13, 20, 32, 0.85);
+      --nav-text: #E8EDF5;
+      --nav-text-muted: rgba(255, 255, 255, 0.45);
+      --nav-border: rgba(255, 255, 255, 0.08);
+      --nav-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    .nav-wrapper {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--nav-height);
+      transition: background 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease;
+      border-bottom: 1px solid transparent;
+    }
+    .nav-wrapper.scrolled {
+      background: var(--nav-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom-color: var(--nav-border);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-wordmark {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--nav-text);
+      letter-spacing: -0.01em;
+      flex-shrink: 0;
+      font-family: var(--nav-font);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
+    .nav-links > li > a,
+    .nav-apps-toggle {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--nav-text-muted);
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--nav-font);
+      transition: color 0.2s ease, background 0.2s ease;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    .nav-links > li > a:hover,
+    .nav-apps-toggle:hover {
+      color: var(--nav-text);
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .nav-caret { font-size: 10px; opacity: 0.6; margin-left: 2px; }
+    .nav-apps-item { position: relative; }
+    .nav-apps-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: #1A2433;
+      border: 1px solid var(--nav-border);
+      border-radius: 12px;
+      padding: 6px;
+      min-width: 160px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-4px);
+      transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+      list-style: none;
+    }
+    .nav-apps-dropdown.open {
+      opacity: 1; visibility: visible; transform: translateY(0);
+    }
+    .nav-apps-dropdown li a {
+      display: block;
+      padding: 8px 12px;
+      font-size: 14px;
+      color: var(--nav-text-muted);
+      border-radius: 6px;
+      transition: color 0.2s ease, background 0.2s ease;
+      text-decoration: none;
+    }
+    .nav-apps-dropdown li a:hover {
+      color: var(--nav-text);
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px; height: 36px;
+      background: none; border: none;
+      cursor: pointer; padding: 4px;
+      border-radius: 6px;
+      transition: background 0.2s ease;
+    }
+    .nav-hamburger:hover { background: rgba(255, 255, 255, 0.06); }
+    .nav-hamburger span {
+      display: block; height: 2px;
+      background: var(--nav-text-muted); border-radius: 2px;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 640px) {
+      .nav-hamburger { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: var(--nav-height);
+        left: 0; right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        background: rgba(13, 20, 32, 0.97);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--nav-border);
+        padding: 12px 16px 20px;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links > li > a,
+      .nav-apps-toggle { padding: 10px 12px; width: 100%; text-align: left; }
+      .nav-apps-dropdown {
+        position: static; opacity: 1; visibility: visible; transform: none;
+        background: transparent; border: none;
+        padding: 0 0 0 16px; margin-top: 4px;
+      }
+      .nav-apps-dropdown li a { padding: 8px 12px; font-size: 13px; }
+    }
+
     /* ============================================================
        CSS Custom Properties
     ============================================================ */
@@ -159,7 +310,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 80px 24px;
+      padding: calc(var(--nav-height) + 80px) 24px 80px;
       position: relative;
       overflow: hidden;
     }
@@ -798,6 +949,33 @@
 <body>
 
   <!-- ============================================================
+       Site Navigation
+  ============================================================ -->
+  <header class="nav-wrapper" id="nav">
+    <nav class="nav-inner">
+      <a href="https://festudio.net" class="nav-wordmark">Fe Studio</a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="https://festudio.net#services">Services</a></li>
+        <li><a href="https://festudio.net#portfolio">Portfolio</a></li>
+        <li><a href="https://festudio.net/blog">Blog</a></li>
+        <li><a href="https://festudio.net#contact">Contact</a></li>
+        <li class="nav-apps-item">
+          <button class="nav-apps-toggle" id="apps-toggle" aria-expanded="false" aria-haspopup="true">
+            Apps <span class="nav-caret" aria-hidden="true">▾</span>
+          </button>
+          <ul class="nav-apps-dropdown" id="apps-dropdown" role="menu">
+            <li role="menuitem"><a href="/scrolless">Scrolless</a></li>
+            <li role="menuitem"><a href="/openbookshelf">OpenBookshelf</a></li>
+          </ul>
+        </li>
+      </ul>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ============================================================
        Section 1: Hero
   ============================================================ -->
   <section class="hero">
@@ -824,7 +1002,7 @@
           </span>
         </div>
       </a>
-      <p class="hero-note">Free 48-hour trial · $2.99 one-time purchase · No account · No tracking · No subscription.</p>
+      <p class="hero-note">Free 7-day trial · $2.99 one-time purchase · No account · No tracking · No subscription.</p>
     </div>
   </section>
 
@@ -1077,6 +1255,8 @@
       <a href="mailto:jared@festudio.net">Support</a>
     </p>
   </footer>
+
+  <script src="../script.js"></script>
 
   <!-- ============================================================
        JS: Intersection Observer for fade-in
