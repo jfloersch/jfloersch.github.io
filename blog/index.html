@@ -4,98 +4,69 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Blog — Fe Studio</title>
-  <meta name="description" content="Writing on mechatronics, engineering, and building things.">
+  <title>Writing | Jared Floersch</title>
+  <meta name="description" content="Essays by Jared Floersch on engineering, technology, attention, and building practical things.">
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Blog — Fe Studio">
-  <meta property="og:description" content="Writing on mechatronics, engineering, and building things.">
+  <meta property="og:title" content="Writing | Jared Floersch">
+  <meta property="og:description" content="Essays on engineering, technology, attention, and making practical things.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://festudio.net/blog">
+  <meta property="og:url" content="https://festudio.net/blog/">
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
 
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/apple-touch-icon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+  <header class="site-header" id="site-header">
+    <div class="container">
+      <nav class="site-nav" aria-label="Main">
+        <a href="/" class="brand-lockup">
+          <img src="/mobius-strip.png" alt="" class="brand-mark">
+          <span class="brand-name">Jared Floersch</span>
+        </a>
 
-  <!-- ============================================================
-       Navigation
-  ============================================================ -->
-  <header class="nav-wrapper" id="nav">
-    <nav class="nav-inner">
-      <a href="/" class="nav-wordmark">Fe Studio</a>
+        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links">Menu</button>
 
-      <ul class="nav-links" id="nav-links">
-        <li><a href="/#services">Services</a></li>
-        <li><a href="/#portfolio">Portfolio</a></li>
-        <li><a href="/blog" class="nav-active">Blog</a></li>
-        <li><a href="/#contact">Contact</a></li>
-        <li class="nav-apps-item">
-          <button class="nav-apps-toggle" id="apps-toggle" aria-expanded="false" aria-haspopup="true">Apps</button>
-          <ul class="nav-apps-dropdown" id="apps-dropdown" role="menu">
-            <li role="menuitem"><a href="/scrolless">Scrolless</a></li>
-            <li role="menuitem"><a href="/openbookshelf">OpenBookshelf</a></li>
-            <li role="menuitem"><a href="/watchpomo">WatchPomo</a></li>
-          </ul>
-        </li>
-      </ul>
-
-      <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </nav>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="/about/">About</a></li>
+          <li><a href="/blog/" class="nav-active">Writing</a></li>
+          <li><a href="/projects/">Projects</a></li>
+          <li><a href="/apps/">Apps</a></li>
+          <li><a href="mailto:jared@festudio.net">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <main>
+  <main class="page">
+    <div class="container">
+      <section class="page-hero">
+        <p class="eyebrow">Writing</p>
+        <h1 class="page-title">Essays and notes.</h1>
+      </section>
 
-    <!-- ============================================================
-         Blog listing
-    ============================================================ -->
-    <section class="blog-page">
-      <div class="container">
-        <div class="blog-page-header reveal">
-          <p class="hero-eyebrow">Writing</p>
-          <h1 class="blog-page-title">Blog</h1>
-          <p class="blog-page-desc">Notes on mechatronics, engineering, and building things.</p>
-        </div>
-
-        <div class="blog-list">
-          <a href="/blog/posts/quitting-the-modern-day-cigarette/" class="blog-post-item reveal">
-            <span class="blog-post-title">Quitting the Modern-Day Cigarette</span>
-            <span class="blog-post-meta">
-              <span class="blog-post-date">2026-04-15</span>
-            </span>
-          </a>
-        </div>
-      </div>
-    </section>
-
+      <section class="section-block">
+        <ul class="archive-list">
+          <li class="archive-item">
+            <div class="archive-main">
+              <a href="/blog/posts/quitting-the-modern-day-cigarette/" class="archive-title">Quitting the Modern-Day Cigarette</a>
+              <p class="archive-summary">Social media is in the same chapter of the story as cigarettes. This essay argues why, and explains the app I built in response.</p>
+            </div>
+            <div class="archive-meta">
+              <span>Essay</span>
+              <span>2026-04-15</span>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </div>
   </main>
 
-  <!-- ============================================================
-       Footer
-  ============================================================ -->
-  <footer class="footer">
-    <div class="container footer-inner">
-      <span class="footer-copy">© <span id="year"></span> Fe Studio</span>
-      <nav class="footer-apps" aria-label="Apps">
-        <a href="/scrolless">Scrolless</a>
-        <a href="/openbookshelf">OpenBookshelf</a>
-        <a href="/watchpomo">WatchPomo</a>
-      </nav>
-      <a href="mailto:jared@festudio.net" class="footer-email">jared@festudio.net</a>
-    </div>
-  </footer>
-
-  <script src="../script.js"></script>
+  <script src="/script.js"></script>
 </body>
 </html>

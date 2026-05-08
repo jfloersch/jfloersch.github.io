@@ -4,124 +4,79 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Post Title — Fe Studio</title>
+  <title>Post Title | Jared Floersch</title>
   <meta name="description" content="Post description goes here.">
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Post Title — Fe Studio">
+  <meta property="og:title" content="Post Title | Jared Floersch">
   <meta property="og:description" content="Post description goes here.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://festudio.net/blog/posts/post-slug/">
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
 
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/apple-touch-icon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="../../../style.css">
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+  <header class="site-header" id="site-header">
+    <div class="container">
+      <nav class="site-nav" aria-label="Main">
+        <a href="/" class="brand-lockup">
+          <span class="brand-name">Jared Floersch</span>
+        </a>
 
-  <!-- ============================================================
-       Navigation
-  ============================================================ -->
-  <header class="nav-wrapper scrolled" id="nav">
-    <nav class="nav-inner">
-      <a href="/" class="nav-wordmark">Fe Studio</a>
+        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links">Menu</button>
 
-      <ul class="nav-links" id="nav-links">
-        <li><a href="/#services">Services</a></li>
-        <li><a href="/#portfolio">Portfolio</a></li>
-        <li><a href="/blog" class="nav-active">Blog</a></li>
-        <li><a href="/#contact">Contact</a></li>
-        <li class="nav-apps-item">
-          <button class="nav-apps-toggle" id="apps-toggle" aria-expanded="false" aria-haspopup="true">Apps</button>
-          <ul class="nav-apps-dropdown" id="apps-dropdown" role="menu">
-            <li role="menuitem"><a href="/scrolless">Scrolless</a></li>
-            <li role="menuitem"><a href="/openbookshelf">OpenBookshelf</a></li>
-            <li role="menuitem"><a href="/watchpomo">WatchPomo</a></li>
-          </ul>
-        </li>
-      </ul>
-
-      <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </nav>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="/about/">About</a></li>
+          <li><a href="/blog/" class="nav-active">Writing</a></li>
+          <li><a href="/projects/">Projects</a></li>
+          <li><a href="/apps/">Apps</a></li>
+          <li><a href="mailto:jared@festudio.net">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <article class="post-page">
-      <div class="post-container">
+  <main class="page post-page">
+    <article class="reading-container">
+      <a href="/blog/" class="post-back">&larr; Back to writing</a>
 
-        <a href="/blog" class="post-back">← All posts</a>
-
-        <header class="post-header">
-          <p class="post-eyebrow">Category · Tag</p>
-          <h1 class="post-title">Post title goes here</h1>
-          <p class="post-subtitle">A one- or two-sentence description of what this post is about.</p>
-          <div class="post-meta">
-            <span class="post-date">2026-04-15</span>
-          </div>
-        </header>
-
-        <div class="post-body">
-          <!-- Post content goes here -->
-          <p>Introduction paragraph.</p>
-
-          <h2>First section</h2>
-          <p>Body text.</p>
+      <header class="post-header">
+        <p class="eyebrow">Category</p>
+        <h1 class="post-title">Post title goes here</h1>
+        <div class="post-meta">
+          <span>2026-04-15</span>
         </div>
+      </header>
 
-        <div class="post-footer">
-          <div class="post-nav-grid">
-            <a href="/blog/posts/previous-post-slug/" class="post-card">
-              <span class="post-card-label">Previous post</span>
-              <span class="post-card-title">Previous post title goes here</span>
-              <span class="post-card-subtitle">Short subtitle or summary goes here.</span>
-            </a>
+      <div class="prose">
+        <p>Introduction paragraph.</p>
 
-            <div class="post-card post-promo">
-              <h2 class="post-promo-heading">More from Fe Studio</h2>
-              <p class="post-promo-copy">I make small, practical apps to build a more intentional digital environment.</p>
-              <div class="post-promo-links">
-                <a href="/scrolless" class="post-promo-link">
-                  <span class="post-promo-link-title">Scrolless</span>
-                  <span class="post-promo-link-copy">Block Algorithmic Feeds, Not Friends -></span>
-                </a>
-                <a href="/openbookshelf" class="post-promo-link">
-                  <span class="post-promo-link-title">OpenBookshelf</span>
-                  <span class="post-promo-link-copy">Free, Minimal Reading Tracker -></span>
-                </a>
-              </div>
-            </div>
+        <h2>First section</h2>
+        <p>Body text.</p>
+      </div>
+
+      <div class="post-footer">
+        <div class="post-footer-grid">
+          <div class="post-footer-card">
+            <h2>More writing</h2>
+            <p><a href="/blog/">Visit the archive</a> to browse the rest of the essays and notes.</p>
+          </div>
+
+          <div class="post-footer-card">
+            <h2>About Jared</h2>
+            <p><a href="/about/">Read the about page</a> for background on the engineering work, apps, and ideas behind this site.</p>
           </div>
         </div>
-
       </div>
     </article>
   </main>
 
-  <!-- ============================================================
-       Footer
-  ============================================================ -->
-  <footer class="footer">
-    <div class="container footer-inner">
-      <span class="footer-copy">© <span id="year"></span> Fe Studio</span>
-      <nav class="footer-apps" aria-label="Apps">
-        <a href="/scrolless">Scrolless</a>
-        <a href="/openbookshelf">OpenBookshelf</a>
-        <a href="/watchpomo">WatchPomo</a>
-      </nav>
-      <a href="mailto:jared@festudio.net" class="footer-email">jared@festudio.net</a>
-    </div>
-  </footer>
-
-  <script src="../../../script.js"></script>
+  <script src="/script.js"></script>
 </body>
 </html>

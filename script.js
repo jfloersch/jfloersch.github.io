@@ -1,91 +1,42 @@
-// ============================================================
-// Navigation — scroll state
-// ============================================================
-const nav = document.getElementById('nav');
+const siteHeader = document.getElementById("site-header");
+const navToggle = document.getElementById("nav-toggle");
+const navLinks = document.getElementById("nav-links");
+const yearEl = document.getElementById("year");
 
-function updateNavScroll() {
-  if (window.scrollY > 20) {
-    nav.classList.add('scrolled');
-  } else {
-    nav.classList.remove('scrolled');
+function syncHeaderState() {
+  if (!siteHeader) {
+    return;
   }
+
+  siteHeader.classList.toggle("scrolled", window.scrollY > 8);
 }
 
-window.addEventListener('scroll', updateNavScroll, { passive: true });
-updateNavScroll();
+if (siteHeader) {
+  syncHeaderState();
+  window.addEventListener("scroll", syncHeaderState, { passive: true });
+}
 
-// ============================================================
-// Navigation — mobile hamburger
-// ============================================================
-const hamburger = document.getElementById('nav-hamburger');
-const navLinks = document.getElementById('nav-links');
-
-hamburger.addEventListener('click', () => {
-  const isOpen = navLinks.classList.toggle('open');
-  hamburger.classList.toggle('open', isOpen);
-  hamburger.setAttribute('aria-expanded', isOpen);
-});
-
-// Close mobile menu on nav link click
-navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    navLinks.classList.remove('open');
-    hamburger.classList.remove('open');
-    hamburger.setAttribute('aria-expanded', 'false');
+if (navToggle && navLinks) {
+  navToggle.addEventListener("click", () => {
+    const isOpen = navLinks.classList.toggle("open");
+    navToggle.setAttribute("aria-expanded", String(isOpen));
   });
-});
 
-// ============================================================
-// Navigation — Apps dropdown
-// ============================================================
-const appsToggle = document.getElementById('apps-toggle');
-const appsDropdown = document.getElementById('apps-dropdown');
+  navLinks.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      navLinks.classList.remove("open");
+      navToggle.setAttribute("aria-expanded", "false");
+    });
+  });
 
-appsToggle.addEventListener('click', (e) => {
-  e.stopPropagation();
-  const isOpen = appsDropdown.classList.toggle('open');
-  appsToggle.setAttribute('aria-expanded', isOpen);
-});
-
-// Close dropdown when clicking outside
-document.addEventListener('click', (e) => {
-  if (!appsToggle.contains(e.target) && !appsDropdown.contains(e.target)) {
-    appsDropdown.classList.remove('open');
-    appsToggle.setAttribute('aria-expanded', 'false');
-  }
-});
-
-// Close dropdown on Escape
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    appsDropdown.classList.remove('open');
-    appsToggle.setAttribute('aria-expanded', 'false');
-  }
-});
-
-// ============================================================
-// Scroll reveal — IntersectionObserver
-// ============================================================
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      revealObserver.unobserve(entry.target);
+  document.addEventListener("click", (event) => {
+    if (!navLinks.contains(event.target) && !navToggle.contains(event.target)) {
+      navLinks.classList.remove("open");
+      navToggle.setAttribute("aria-expanded", "false");
     }
   });
-}, {
-  threshold: 0.12,
-  rootMargin: '0px 0px -40px 0px'
-});
+}
 
-document.querySelectorAll('.reveal').forEach(el => {
-  revealObserver.observe(el);
-});
-
-// ============================================================
-// Footer — current year
-// ============================================================
-const yearEl = document.getElementById('year');
 if (yearEl) {
   yearEl.textContent = new Date().getFullYear();
 }
