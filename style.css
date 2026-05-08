@@ -188,7 +188,12 @@ main {
 
 .hero-copy {
   margin-top: 34px;
-  max-width: 34rem;
+}
+
+.home-hero .hero-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
 }
 
 .hero-copy p,
