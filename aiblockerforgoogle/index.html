@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AI Blocker for Google - Remove AI Overviews from Google Search</title>
+  <meta name="description" content="AI Blocker for Google removes AI Overview panels from Google Search results so you can get back to links, sources, and the web.">
+  <meta name="keywords" content="AI blocker, Google AI overview blocker, remove AI overviews, Google Search extension, AI Overview remover, search results cleaner">
+
+  <meta property="og:title" content="AI Blocker for Google">
+  <meta property="og:description" content="Remove AI Overviews from Google Search results and get back to links, sources, and the web.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://festudio.net/aiblockerforgoogle">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="AI Blocker for Google">
+  <meta name="twitter:description" content="Remove AI Overviews from Google Search results and get back to links, sources, and the web.">
+
+  <link rel="icon" type="image/png" href="/apple-touch-icon.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "AI Blocker for Google",
+    "applicationCategory": "UtilitiesApplication",
+    "description": "A focused app that removes AI Overview panels from Google Search results.",
+    "url": "https://festudio.net/aiblockerforgoogle",
+    "author": {
+      "@type": "Organization",
+      "name": "Fe Studio",
+      "url": "https://festudio.net"
+    },
+    "featureList": [
+      "Remove AI Overviews from Google Search",
+      "Keep normal search results visible",
+      "No account required",
+      "No tracking or analytics",
+      "Runs locally in the browser"
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --nav-height: 64px;
+      --ink: #172033;
+      --ink-muted: #667085;
+      --paper: #f7f8fb;
+      --surface: #ffffff;
+      --line: rgba(23, 32, 51, 0.12);
+      --line-strong: rgba(23, 32, 51, 0.2);
+      --green: #127c52;
+      --green-soft: #e5f6ed;
+      --red: #cc3d3d;
+      --blue: #2f5fca;
+      --charcoal: #101828;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --radius: 8px;
+      --shadow: 0 20px 60px rgba(16, 24, 40, 0.12);
+      --transition: 180ms ease;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font);
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .nav-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      height: var(--nav-height);
+      background: rgba(247, 248, 251, 0.9);
+      border-bottom: 1px solid rgba(23, 32, 51, 0.08);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .nav-inner {
+      width: min(calc(100% - 40px), 1120px);
+      height: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .nav-wordmark {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 0 12px;
+      border-radius: 6px;
+      color: var(--ink-muted);
+      font-size: 14px;
+      font-weight: 600;
+      transition: color var(--transition), background var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+      background: rgba(23, 32, 51, 0.06);
+    }
+
+    .container {
+      width: min(calc(100% - 40px), 1120px);
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: 92vh;
+      padding: calc(var(--nav-height) + 72px) 0 72px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr);
+      align-items: center;
+      gap: 64px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 22px;
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    h1 {
+      max-width: 720px;
+      color: var(--ink);
+      font-size: clamp(42px, 7vw, 78px);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: 0;
+      margin-bottom: 28px;
+    }
+
+    .hero-copy {
+      max-width: 620px;
+      color: var(--ink-muted);
+      font-size: clamp(18px, 2.2vw, 22px);
+      line-height: 1.55;
+      margin-bottom: 34px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: var(--radius);
+      font-size: 15px;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: transform var(--transition), background var(--transition), border-color var(--transition);
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .button-primary {
+      color: #fff;
+      background: var(--charcoal);
+      border-color: var(--charcoal);
+    }
+
+    .button-secondary {
+      color: var(--ink);
+      background: var(--surface);
+      border-color: var(--line-strong);
+    }
+
+    .hero-note {
+      color: var(--ink-muted);
+      font-size: 14px;
+    }
+
+    .search-demo {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .browser-bar {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--line);
+      background: #f2f4f7;
+    }
+
+    .browser-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #d0d5dd;
+    }
+
+    .browser-dot:nth-child(1) {
+      background: #ef6f6c;
+    }
+
+    .browser-dot:nth-child(2) {
+      background: #f0bf4c;
+    }
+
+    .browser-dot:nth-child(3) {
+      background: #56bf7b;
+    }
+
+    .search-content {
+      padding: 22px;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      min-height: 46px;
+      padding: 0 16px;
+      border: 1px solid var(--line-strong);
+      border-radius: 24px;
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .blocked-panel {
+      position: relative;
+      min-height: 116px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(204, 61, 61, 0.24);
+      border-radius: var(--radius);
+      background: #fff4f4;
+      overflow: hidden;
+    }
+
+    .blocked-panel::before {
+      content: 'AI Overview';
+      display: block;
+      padding: 14px 16px 8px;
+      color: #923131;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .blocked-line {
+      height: 10px;
+      margin: 9px 16px;
+      border-radius: 999px;
+      background: rgba(204, 61, 61, 0.16);
+    }
+
+    .blocked-line:nth-child(2) {
+      width: 78%;
+    }
+
+    .blocked-line:nth-child(3) {
+      width: 64%;
+    }
+
+    .blocked-line:nth-child(4) {
+      width: 48%;
+    }
+
+    .block-label {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      color: var(--red);
+      font-size: 14px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .result {
+      padding: 16px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .result:first-of-type {
+      border-top: 0;
+    }
+
+    .result-url {
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .result-title {
+      color: var(--blue);
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 5px;
+    }
+
+    .result-text {
+      color: var(--ink-muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .section {
+      padding: 84px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-kicker {
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      max-width: 760px;
+      color: var(--ink);
+      font-size: clamp(30px, 4vw, 44px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: 0;
+      margin-bottom: 18px;
+    }
+
+    .section-lead {
+      max-width: 700px;
+      color: var(--ink-muted);
+      font-size: 18px;
+      line-height: 1.7;
+      margin-bottom: 42px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .feature-card {
+      min-height: 190px;
+      padding: 24px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .feature-icon {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      margin-bottom: 18px;
+      border-radius: var(--radius);
+      color: var(--green);
+      background: var(--green-soft);
+      font-weight: 800;
+    }
+
+    .feature-card h3 {
+      font-size: 18px;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      color: var(--ink-muted);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .comparison {
+      background: var(--surface);
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .comparison-panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--paper);
+    }
+
+    .comparison-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--line);
+      background: var(--surface);
+      font-weight: 800;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .status-pill.noisy {
+      color: #923131;
+      background: #ffe8e8;
+    }
+
+    .status-pill.clean {
+      color: #0f6845;
+      background: var(--green-soft);
+    }
+
+    .comparison-list {
+      padding: 10px 20px 20px;
+    }
+
+    .comparison-list li {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink-muted);
+    }
+
+    .comparison-list li:last-child {
+      border-bottom: 0;
+    }
+
+    .privacy {
+      background: #101828;
+      color: #fff;
+      border-bottom: 0;
+    }
+
+    .privacy .section-kicker {
+      color: #86efac;
+    }
+
+    .privacy h2,
+    .privacy h3 {
+      color: #fff;
+    }
+
+    .privacy .section-lead,
+    .privacy p,
+    .privacy li {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .privacy-policy {
+      max-width: 800px;
+    }
+
+    .privacy-card {
+      margin: 34px 0 42px;
+      padding: 22px 24px;
+      border: 1px solid rgba(134, 239, 172, 0.28);
+      border-radius: var(--radius);
+      background: rgba(18, 124, 82, 0.16);
+    }
+
+    .privacy-card p {
+      color: #dcfce7;
+      font-size: 17px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .policy-block {
+      margin-top: 32px;
+    }
+
+    .policy-block h3 {
+      font-size: 19px;
+      margin-bottom: 8px;
+    }
+
+    .policy-block p {
+      margin-bottom: 12px;
+    }
+
+    .policy-block a {
+      color: #bfdbfe;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    footer {
+      padding: 34px 20px;
+      text-align: center;
+      background: #0b1220;
+      color: rgba(255, 255, 255, 0.54);
+      font-size: 14px;
+    }
+
+    footer a {
+      color: rgba(255, 255, 255, 0.76);
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 44px;
+      }
+
+      .feature-grid,
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-inner,
+      .container {
+        width: min(calc(100% - 32px), 1120px);
+      }
+
+      .nav-links {
+        gap: 2px;
+      }
+
+      .nav-links a {
+        padding: 0 7px;
+        font-size: 13px;
+      }
+
+      .hero {
+        padding-top: calc(var(--nav-height) + 48px);
+      }
+
+      .search-content {
+        padding: 16px;
+      }
+
+      .section {
+        padding: 62px 0;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .nav-links li:not(:last-child) {
+        display: none;
+      }
+
+      .nav-links a {
+        padding: 0 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav-wrapper">
+    <nav class="nav-inner" aria-label="Main">
+      <a href="/" class="nav-wordmark">Fe Studio</a>
+      <ul class="nav-links">
+        <li><a href="/#writing">Writing</a></li>
+        <li><a href="/#work">Work</a></li>
+        <li><a href="/#apps">Apps</a></li>
+        <li><a href="#privacy">Privacy</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <p class="eyebrow">Google Search cleaner</p>
+            <h1>Search results without AI Overviews.</h1>
+            <p class="hero-copy">
+              AI Blocker for Google removes AI Overview panels from Google Search results, keeping the page focused on links, source pages, and the web you meant to search.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#privacy">Read the privacy policy</a>
+              <a class="button button-secondary" href="mailto:support@festudio.net">Contact support</a>
+            </div>
+            <p class="hero-note">No account. No tracking. No analytics.</p>
+          </div>
+
+          <div class="search-demo" aria-label="Example search results with an AI Overview removed">
+            <div class="browser-bar" aria-hidden="true">
+              <span class="browser-dot"></span>
+              <span class="browser-dot"></span>
+              <span class="browser-dot"></span>
+            </div>
+            <div class="search-content">
+              <div class="search-box">how to compare primary sources</div>
+              <div class="blocked-panel" aria-label="AI Overview removed">
+                <div class="blocked-line"></div>
+                <div class="blocked-line"></div>
+                <div class="blocked-line"></div>
+                <div class="block-label">AI Overview removed</div>
+              </div>
+              <div class="result">
+                <p class="result-url">example.edu</p>
+                <p class="result-title">Evaluating primary and secondary sources</p>
+                <p class="result-text">A concise guide to reading source material directly, checking context, and comparing original references.</p>
+              </div>
+              <div class="result">
+                <p class="result-url">library.example.org</p>
+                <p class="result-title">Research guide: source comparison</p>
+                <p class="result-text">Methods for tracing claims back to source documents and deciding what evidence is reliable.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <p class="section-kicker">What it does</p>
+        <h2>A focused block for one specific problem.</h2>
+        <p class="section-lead">
+          AI Blocker for Google is built around a narrow job: remove Google's AI Overview module from search result pages while leaving the rest of the search experience intact.
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <span class="feature-icon" aria-hidden="true">1</span>
+            <h3>Removes AI Overviews</h3>
+            <p>When Google inserts an AI Overview at the top of search results, the app hides that panel so links are visible first.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon" aria-hidden="true">2</span>
+            <h3>Keeps normal results</h3>
+            <p>Search results, source links, ads, maps, snippets, and other standard Google Search page elements are not the target.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon" aria-hidden="true">3</span>
+            <h3>Runs locally</h3>
+            <p>The blocking logic runs in your browser. It does not require an account, background server, analytics SDK, or tracking service.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section comparison">
+      <div class="container">
+        <p class="section-kicker">Why it exists</p>
+        <h2>Less generated summary, more direct source material.</h2>
+        <p class="section-lead">
+          Search is most useful when it quickly gets you to the sources you want to inspect. This app removes the generated answer block so the rest of the results page can do that job.
+        </p>
+
+        <div class="comparison-grid">
+          <div class="comparison-panel">
+            <div class="comparison-heading">
+              <span>Without AI Blocker</span>
+              <span class="status-pill noisy">AI panel visible</span>
+            </div>
+            <ul class="comparison-list">
+              <li>Generated overview takes the first result position.</li>
+              <li>Source links start lower on the page.</li>
+              <li>The page favors a summary before original material.</li>
+            </ul>
+          </div>
+          <div class="comparison-panel">
+            <div class="comparison-heading">
+              <span>With AI Blocker</span>
+              <span class="status-pill clean">AI panel hidden</span>
+            </div>
+            <ul class="comparison-list">
+              <li>Regular Google results move back into focus.</li>
+              <li>You can scan source pages faster.</li>
+              <li>The search page stays closer to the classic link-first flow.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section privacy" id="privacy">
+      <div class="container privacy-policy">
+        <p class="section-kicker">Privacy policy</p>
+        <h2>AI Blocker for Google Privacy Policy</h2>
+        <p class="section-lead">Effective date: June 4, 2026 - Fe Studio</p>
+
+        <div class="privacy-card">
+          <p>AI Blocker for Google does not collect personal data, search queries, browsing history, or usage analytics.</p>
+        </div>
+
+        <div class="policy-block">
+          <h3>Who we are</h3>
+          <p>AI Blocker for Google is developed and published by Fe Studio, an independent software studio. You can reach us at <a href="mailto:support@festudio.net">support@festudio.net</a>.</p>
+        </div>
+
+        <div class="policy-block">
+          <h3>What data we collect</h3>
+          <p>None. AI Blocker for Google does not collect, transmit, store, sell, or share personal data, search queries, browsing history, device identifiers, analytics, crash reports, or information about how you use Google Search.</p>
+        </div>
+
+        <div class="policy-block">
+          <h3>How the app works</h3>
+          <p>AI Blocker for Google runs locally in your browser and hides AI Overview elements on Google Search result pages. The app does not send your searches or page contents to Fe Studio.</p>
+          <p>Google may still process your searches as part of your normal use of Google Search. AI Blocker for Google does not control Google's own data practices.</p>
+        </div>
+
+        <div class="policy-block">
+          <h3>Third-party services</h3>
+          <p>AI Blocker for Google does not include third-party analytics, advertising, tracking SDKs, or remote logging services.</p>
+          <p>If the app is purchased or downloaded through an app marketplace, that marketplace may process purchase, download, or account information under its own privacy policy. Fe Studio does not receive your payment information.</p>
+        </div>
+
+        <div class="policy-block">
+          <h3>Children's privacy</h3>
+          <p>AI Blocker for Google does not collect data from anyone, including children under 13.</p>
+        </div>
+
+        <div class="policy-block">
+          <h3>Changes to this policy</h3>
+          <p>If we change how AI Blocker for Google handles data, we will update this policy and change the effective date above.</p>
+        </div>
+
+        <div class="policy-block">
+          <h3>Contact</h3>
+          <p>Questions about this policy? Reach us at <a href="mailto:support@festudio.net">support@festudio.net</a>.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Made by <a href="https://festudio.net">Fe Studio</a> &nbsp;|&nbsp; <a href="#privacy">Privacy Policy</a></p>
+  </footer>
+</body>
+</html>
