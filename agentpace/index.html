@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AgentPace - macOS Menu Bar Pace Meter for Claude Code and Codex</title>
+  <meta name="description" content="AgentPace is a tiny macOS menu-bar app that shows whether your Claude Code and Codex usage is ahead of or behind your ideal weekly and 5-hour pace.">
+  <meta name="keywords" content="agentpace, claude code usage, codex usage, ai usage tracker, macos menu bar app, usage pace meter, claude code, codex, developer tool">
+
+  <meta property="og:title" content="AgentPace - macOS AI Usage Pace Meter">
+  <meta property="og:description" content="A tiny macOS menu-bar app for pacing Claude Code and Codex usage against ideal weekly and 5-hour budget lines.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://festudio.net/agentpace">
+  <meta property="og:image" content="https://festudio.net/agentpace/app-icon.jpg">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AgentPace - macOS AI Usage Pace Meter">
+  <meta name="twitter:description" content="See whether your Claude Code and Codex usage is ahead of or behind your ideal pace.">
+  <meta name="twitter:image" content="https://festudio.net/agentpace/app-icon.jpg">
+
+  <link rel="icon" type="image/jpeg" href="app-icon.jpg">
+  <link rel="apple-touch-icon" href="app-icon.jpg">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "AgentPace",
+    "operatingSystem": "macOS",
+    "applicationCategory": "DeveloperApplication",
+    "description": "A minimal macOS menu-bar app that helps developers pace Claude Code and Codex usage across weekly and 5-hour quota windows.",
+    "url": "https://festudio.net/agentpace",
+    "author": {
+      "@type": "Organization",
+      "name": "Fe Studio",
+      "url": "https://festudio.net"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "4.99",
+      "priceCurrency": "USD",
+      "description": "7-day local trial, then $4.99 one-time lifetime unlock"
+    },
+    "featureList": [
+      "Menu-bar-only macOS app",
+      "Codex and Claude Code usage pacing",
+      "Weekly and 5-hour pace charts",
+      "Ideal pace vs actual usage",
+      "Local usage history",
+      "No analytics, telemetry, or backend"
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --hero-dark: #101317;
+      --dark-bg: #182027;
+      --light-bg: #F4F6F8;
+      --warm-bg: #EEF2F0;
+      --panel: #FFFFFF;
+      --brand: #3F7D6B;
+      --brand-strong: #255A4D;
+      --accent: #D08A3E;
+      --text-dark: #182027;
+      --text-light: #FFFFFF;
+      --text-muted: #66717B;
+      --line: #DFE5EA;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --transition: 0.2s ease;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background: var(--light-bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .section {
+      padding: 80px 0;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background:
+        radial-gradient(ellipse at 16% 12%, rgba(63, 125, 107, 0.22) 0%, transparent 45%),
+        radial-gradient(ellipse at 86% 20%, rgba(208, 138, 62, 0.16) 0%, transparent 38%),
+        var(--hero-dark);
+      padding: 84px 0 72px;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.96fr) minmax(360px, 0.84fr);
+      gap: 56px;
+      align-items: center;
+    }
+
+    .app-lockup {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .app-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+    }
+
+    .hero-eyebrow,
+    .section-label {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .hero h1 {
+      max-width: 760px;
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 700;
+      color: var(--text-light);
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+      margin-bottom: 28px;
+    }
+
+    .hero-subtitle {
+      max-width: 670px;
+      font-size: clamp(17px, 2.2vw, 21px);
+      color: rgba(255, 255, 255, 0.72);
+      line-height: 1.65;
+      margin-bottom: 34px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .primary-button,
+    .secondary-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 20px;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      transition: opacity var(--transition), transform var(--transition), background var(--transition);
+    }
+
+    .primary-button {
+      background: var(--brand);
+      color: #fff;
+      box-shadow: 0 10px 28px rgba(63, 125, 107, 0.26);
+    }
+
+    .secondary-button {
+      color: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .primary-button:hover,
+    .secondary-button:hover {
+      opacity: 0.88;
+      transform: translateY(-2px);
+    }
+
+    .hero-note {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.46);
+    }
+
+    .popover-demo {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 18px;
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.36);
+      overflow: hidden;
+    }
+
+    .popover-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 16px 26px;
+      border-bottom: 1px solid var(--line);
+      position: relative;
+    }
+
+    .provider-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 32px;
+      padding: 0 12px;
+      background: #EEF2F0;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .popover-status {
+      position: absolute;
+      left: 16px;
+      bottom: 7px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .icon-button {
+      width: 28px;
+      height: 28px;
+      display: inline-grid;
+      place-items: center;
+      color: var(--text-muted);
+      font-family: var(--mono);
+      font-size: 14px;
+    }
+
+    .spacer { flex: 1; }
+
+    .usage-card {
+      margin: 14px;
+      padding: 16px;
+      background: #F8FAFB;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .usage-card h2 {
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+
+    .metric-line {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .chart {
+      position: relative;
+      height: 108px;
+      border-left: 1px solid #CCD5DB;
+      border-bottom: 1px solid #CCD5DB;
+      background:
+        linear-gradient(to right, rgba(24, 32, 39, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(24, 32, 39, 0.06) 1px, transparent 1px);
+      background-size: 25% 50%;
+      margin-bottom: 12px;
+    }
+
+    .line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 3px;
+      border-radius: 999px;
+      transform-origin: left center;
+    }
+
+    .ideal {
+      bottom: 34px;
+      background: rgba(102, 113, 123, 0.45);
+      transform: rotate(-13deg);
+    }
+
+    .actual-under {
+      bottom: 49px;
+      width: 86%;
+      background: var(--brand);
+      transform: rotate(-9deg);
+    }
+
+    .actual-over {
+      bottom: 24px;
+      width: 92%;
+      background: var(--accent);
+      transform: rotate(-23deg);
+    }
+
+    .interpretation {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .how-it-works {
+      background: var(--light-bg);
+    }
+
+    .section h2,
+    .privacy-band h2,
+    .cta-section h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .section-lead {
+      max-width: 680px;
+      margin: 16px 0 48px;
+      font-size: clamp(16px, 2vw, 18px);
+      color: var(--text-muted);
+      line-height: 1.75;
+    }
+
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .step-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 30px 32px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.04);
+    }
+
+    .step-card h3 {
+      font-size: 21px;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .step-card p,
+    .privacy-band p {
+      color: var(--text-muted);
+      line-height: 1.75;
+    }
+
+    .pace-band {
+      background: var(--warm-bg);
+    }
+
+    .pace-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .pace-card {
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(24, 32, 39, 0.08);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .pace-card h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .pace-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .privacy-band {
+      background: #fff;
+      padding: 90px 0;
+    }
+
+    .privacy-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.74fr) minmax(280px, 0.46fr);
+      gap: 52px;
+      align-items: start;
+    }
+
+    .privacy-list {
+      list-style: none;
+      margin-top: 28px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .privacy-list li {
+      padding-left: 28px;
+      position: relative;
+      color: var(--text-muted);
+    }
+
+    .privacy-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.65em;
+      width: 12px;
+      height: 2px;
+      background: var(--brand);
+    }
+
+    .local-card {
+      border-radius: var(--radius);
+      background: var(--hero-dark);
+      color: #fff;
+      padding: 26px;
+    }
+
+    .local-card h3 {
+      margin-bottom: 14px;
+      font-size: 16px;
+    }
+
+    .local-card code {
+      display: block;
+      padding: 12px;
+      margin: 10px 0;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 7px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.78);
+      white-space: normal;
+      word-break: break-word;
+    }
+
+    .cta-section {
+      background: var(--dark-bg);
+      text-align: center;
+      padding: 96px 24px;
+    }
+
+    .cta-section h2 {
+      color: var(--text-light);
+      margin-bottom: 18px;
+    }
+
+    .cta-section p {
+      max-width: 620px;
+      margin: 0 auto 32px;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    footer {
+      background: var(--hero-dark);
+      padding: 32px 24px;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    footer p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.42);
+      line-height: 2;
+    }
+
+    footer a {
+      color: rgba(255, 255, 255, 0.58);
+      transition: color var(--transition);
+    }
+
+    footer a:hover {
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-grid,
+      .privacy-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .popover-demo {
+        max-width: 440px;
+      }
+
+      .pace-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .section,
+      .privacy-band,
+      .cta-section {
+        padding: 58px 0;
+      }
+
+      .hero {
+        padding: 64px 0 52px;
+      }
+
+      .hero h1 {
+        font-size: clamp(36px, 12vw, 54px);
+      }
+
+      .hero-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .primary-button,
+      .secondary-button {
+        width: 100%;
+      }
+
+      .step-card {
+        padding: 24px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .fade-in {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="app-lockup">
+            <img class="app-icon" src="app-icon.jpg" alt="">
+            <span class="hero-eyebrow">macOS menu-bar pace meter</span>
+          </div>
+          <h1>Keep your coding agents on pace.</h1>
+          <p class="hero-subtitle">
+            AgentPace shows whether your Claude Code and Codex usage is ahead of
+            or behind a simple ideal pace for your weekly and 5-hour windows.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-button" href="mailto:jared@festudio.net?subject=AgentPace">Coming soon for macOS</a>
+            <a class="secondary-button" href="/agentpace/privacy">Privacy Policy</a>
+          </div>
+          <p class="hero-note">7-day local trial &middot; $4.99 lifetime unlock &middot; No subscription &middot; No analytics &middot; No backend.</p>
+        </div>
+
+        <div class="popover-demo" aria-label="AgentPace popover preview">
+          <div class="popover-header">
+            <span>Provider:</span>
+            <span class="provider-pill">Codex</span>
+            <span class="spacer"></span>
+            <span class="icon-button">&#8635;</span>
+            <span class="icon-button">&#9881;</span>
+            <span class="popover-status">Updated 2m ago &middot; Source: Codex RPC</span>
+          </div>
+
+          <div class="usage-card">
+            <h2>Weekly</h2>
+            <p class="metric-line">72% remaining / 68% ideal / 4% under</p>
+            <div class="chart" aria-hidden="true">
+              <span class="line ideal"></span>
+              <span class="line actual-under"></span>
+            </div>
+            <p class="interpretation">You are 4% under pace. Safe to keep using this provider at the current rate.</p>
+          </div>
+
+          <div class="usage-card">
+            <h2>5-hour</h2>
+            <p class="metric-line">41% remaining / 55% ideal / 14% over</p>
+            <div class="chart" aria-hidden="true">
+              <span class="line ideal"></span>
+              <span class="line actual-over"></span>
+            </div>
+            <p class="interpretation">You are 14% over pace. At this rate, this window may run out before reset.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section how-it-works">
+    <div class="container">
+      <p class="section-label fade-in">How it works</p>
+      <h2 class="fade-in">A budget line for your agent usage.</h2>
+      <p class="section-lead fade-in">
+        Percent-used numbers are hard to reason about in the middle of a work session.
+        AgentPace turns the same quota windows into a pace question: are you ahead,
+        behind, or right where you expected to be?
+      </p>
+
+      <div class="steps-list">
+        <div class="step-card fade-in">
+          <h3>Watch weekly and 5-hour windows</h3>
+          <p>AgentPace keeps the two quota windows developers care about in one compact menu-bar popover, with separate charts and plain-language pace summaries.</p>
+        </div>
+        <div class="step-card fade-in">
+          <h3>Compare actual usage to the ideal line</h3>
+          <p>Each chart overlays your actual remaining usage against a simple linear budget line, so you can see when you are burning faster than planned.</p>
+        </div>
+        <div class="step-card fade-in">
+          <h3>Switch between Codex and Claude Code</h3>
+          <p>Use the provider picker to check either tool. Manual refresh, refresh-on-open, and optional polling keep the app small without turning it into another dashboard.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section pace-band">
+    <div class="container">
+      <p class="section-label fade-in">Why AgentPace</p>
+      <h2 class="fade-in">Built for checking pace, not analyzing everything.</h2>
+      <p class="section-lead fade-in">
+        No provider marketplace, cost analytics, browser scraping, WebView login,
+        widgets, notifications, or cloud account. AgentPace is intentionally small.
+      </p>
+
+      <div class="pace-grid">
+        <div class="pace-card fade-in">
+          <h3>Menu-bar only</h3>
+          <p>A static icon opens a compact native popover. No Dock icon, no dashboard to manage, no extra workflow.</p>
+        </div>
+        <div class="pace-card fade-in">
+          <h3>Local provider access</h3>
+          <p>Codex usage is read through the local Codex CLI app-server. Claude can use AgentPace's own Keychain token or local Claude Code credentials.</p>
+        </div>
+        <div class="pace-card fade-in">
+          <h3>Plain decisions</h3>
+          <p>Under pace means you have room. Over pace means slow down, switch providers, or save capacity for later.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="privacy-band">
+    <div class="container">
+      <div class="privacy-layout">
+        <div>
+          <p class="section-label fade-in">Privacy by construction</p>
+          <h2 class="fade-in">Your agent usage stays on your Mac.</h2>
+          <p class="section-lead fade-in">
+            AgentPace has no analytics, telemetry, ads, backend, or account system.
+            It reads local login state only to fetch usage directly from the provider
+            endpoints, then stores short-term history locally.
+          </p>
+          <ul class="privacy-list fade-in">
+            <li>Tokens are not uploaded, synced, or stored in AgentPace settings or history.</li>
+            <li>AgentPace-owned Claude credentials are stored in the macOS Keychain.</li>
+            <li>Usage snapshots and refresh errors are stored locally for 30 days.</li>
+            <li>Clear local history from Settings whenever you want.</li>
+          </ul>
+        </div>
+
+        <div class="local-card fade-in">
+          <h3>Local files</h3>
+          <code>~/Library/Application Support/AgentPace/snapshots.jsonl</code>
+          <code>~/Library/Application Support/AgentPace/errors.jsonl</code>
+          <p>Fe Studio does not operate servers that receive data from AgentPace.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <h2 class="fade-in">Know when to push and when to ease off.</h2>
+      <p class="fade-in">
+        AgentPace is for developers who use coding agents heavily enough that quota pacing matters,
+        but who do not want another analytics product watching over their work.
+      </p>
+      <a class="primary-button fade-in" href="mailto:jared@festudio.net?subject=AgentPace">Ask about AgentPace</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>Made by <a href="https://festudio.net">Fe Studio</a></p>
+    <p>
+      <a href="/agentpace/privacy">Privacy Policy</a>
+      &nbsp;&middot;&nbsp;
+      <a href="mailto:jared@festudio.net">Support</a>
+    </p>
+  </footer>
+
+  <script>
+    (function () {
+      var els = document.querySelectorAll('.fade-in');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('visible'); });
+        return;
+      }
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      els.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
+</body>
+</html>

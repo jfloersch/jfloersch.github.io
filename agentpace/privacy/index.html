@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - AgentPace</title>
+  <meta name="description" content="AgentPace Privacy Policy. AgentPace has no analytics, telemetry, ads, backend, or account system. Usage history stays local on your Mac.">
+  <meta name="robots" content="noindex">
+
+  <link rel="icon" type="image/jpeg" href="../app-icon.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --dark-bg: #182027;
+      --light-bg: #F4F6F8;
+      --brand: #3F7D6B;
+      --text-dark: #182027;
+      --text-muted: #66717B;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text-dark);
+      background: var(--light-bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header {
+      background: var(--dark-bg);
+      padding: 20px 24px;
+    }
+
+    header a {
+      color: rgba(255,255,255,0.62);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    header a:hover { color: #fff; }
+
+    header a::before {
+      content: '< ';
+    }
+
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 64px 24px 80px;
+    }
+
+    h1 {
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .meta {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 48px;
+    }
+
+    h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin: 40px 0 12px;
+    }
+
+    p { margin-bottom: 16px; }
+
+    p:last-child { margin-bottom: 0; }
+
+    a { color: var(--brand); }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.92em;
+      word-break: break-word;
+    }
+
+    .highlight-box {
+      background: #E8F5E9;
+      border-left: 4px solid #27AE60;
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin: 32px 0 40px;
+    }
+
+    .highlight-box p {
+      font-size: 17px;
+      font-weight: 600;
+      color: #1B5E20;
+      margin: 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 14px;
+      color: var(--text-muted);
+      border-top: 1px solid #E5E7EB;
+    }
+
+    footer a { color: var(--brand); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="/agentpace">AgentPace</a>
+  </header>
+
+  <main>
+    <h1>Privacy Policy</h1>
+    <p class="meta">Effective date: June 2026 &nbsp;&middot;&nbsp; Fe Studio</p>
+
+    <div class="highlight-box">
+      <p>AgentPace has no analytics, telemetry, ads, backend, or account system. Usage history stays local on your Mac.</p>
+    </div>
+
+    <h2>Who we are</h2>
+    <p>
+      AgentPace is developed and published by Fe Studio, an independent software studio.
+      You can reach us at <a href="mailto:jared@festudio.net">jared@festudio.net</a>.
+    </p>
+
+    <h2>What data we collect</h2>
+    <p>
+      Fe Studio does not collect, transmit, store remotely, sell, or share personal data,
+      usage data, analytics, crash reports, or telemetry from AgentPace.
+    </p>
+
+    <h2>How AgentPace works</h2>
+    <p>
+      AgentPace is a native macOS menu-bar app that reads local Claude Code and Codex login
+      state only so it can fetch your usage directly from Anthropic and OpenAI usage endpoints.
+      Fe Studio does not receive these requests or operate a server for AgentPace.
+    </p>
+    <p>
+      For Codex, AgentPace resolves the local Codex CLI and reads usage through the Codex
+      app-server. For Claude Code, AgentPace can use its own Claude sign-in stored in an
+      AgentPace-owned macOS Keychain item, an environment token, local Claude credentials,
+      or an optional Claude Code Keychain fallback.
+    </p>
+
+    <h2>Credentials and tokens</h2>
+    <p>
+      Tokens are never stored in AgentPace settings or local usage history. AgentPace-owned
+      Claude credentials, when used, are stored in the macOS Keychain. Tokens are sent only
+      to the relevant provider usage endpoints needed to refresh your usage data.
+    </p>
+
+    <h2>Local history</h2>
+    <p>
+      AgentPace stores usage snapshots and refresh errors locally on your Mac for up to 30 days:
+      <code>~/Library/Application Support/AgentPace/snapshots.jsonl</code> and
+      <code>~/Library/Application Support/AgentPace/errors.jsonl</code>.
+    </p>
+    <p>
+      You can delete this local history from AgentPace Settings using Clear local history.
+      This data is not uploaded or synced by AgentPace.
+    </p>
+
+    <h2>Third-party services</h2>
+    <p>
+      AgentPace does not integrate third-party analytics, advertising, tracking, or crash
+      reporting SDKs. Usage refreshes communicate directly with Anthropic and OpenAI provider
+      endpoints, and those providers' privacy policies govern data they receive.
+    </p>
+    <p>
+      Purchase and payment processing is handled by Apple through the App Store. Apple's
+      privacy policy governs any data collected during purchase or restore flows. Fe Studio
+      never receives your payment information.
+    </p>
+
+    <h2>Children's privacy</h2>
+    <p>
+      AgentPace does not collect data from anyone, including children under 13. Because Fe
+      Studio does not collect data through AgentPace, the app is designed to avoid collecting
+      children's personal information.
+    </p>
+
+    <h2>Changes to this policy</h2>
+    <p>
+      If we change how AgentPace handles data, we will update this policy and change the
+      effective date above. We will not add data collection without updating this policy first.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      Questions about this policy? Reach us at <a href="mailto:jared@festudio.net">jared@festudio.net</a>.
+    </p>
+  </main>
+
+  <footer>
+    <p>
+      <a href="/agentpace">AgentPace</a> &nbsp;&middot;&nbsp;
+      Made by <a href="https://festudio.net">Fe Studio</a>
+    </p>
+  </footer>
+
+</body>
+</html>
