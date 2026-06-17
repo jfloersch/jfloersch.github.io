@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>How to Manage Coding-Agent Usage Limits &ndash; AgentPace</title>
+  <meta name="description" content="Coding-agent usage limits are easier to manage when you track pace, not just totals. AgentPace shows whether your Claude Code and Codex usage is burning too fast.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://festudio.net/agentpace/coding-agent-usage-limits/">
+
+  <meta property="og:title" content="How to Manage Coding-Agent Usage Limits &ndash; AgentPace">
+  <meta property="og:description" content="Coding-agent usage limits are easier to manage when you track pace, not just totals. AgentPace shows whether your Claude Code and Codex usage is burning too fast.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://festudio.net/agentpace/coding-agent-usage-limits/">
+  <meta property="og:image" content="https://festudio.net/agentpace/og-image.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Manage Coding-Agent Usage Limits &ndash; AgentPace">
+  <meta name="twitter:description" content="Coding-agent usage limits are easier to manage when you track pace, not just totals. AgentPace shows whether your Claude Code and Codex usage is burning too fast.">
+  <meta name="twitter:image" content="https://festudio.net/agentpace/og-image.png">
+
+  <link rel="icon" type="image/png" href="../app-icon.png">
+  <link rel="apple-touch-icon" href="../app-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../seo.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <nav class="nav" aria-label="Primary">
+        <a class="brand" href="/agentpace/" aria-label="AgentPace home">
+          <img src="../app-icon.png" alt="">
+          <span>AgentPace</span>
+        </a>
+        <div class="nav-links">
+          <a href="/agentpace/">Product</a>
+          <a href="/agentpace/faq/">FAQ</a>
+          <a href="/agentpace/#download">Download</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Coding-agent usage limits</p>
+        <h1>Coding-agent usage limits need a pace meter, not just a counter.</h1>
+        <p class="hero-copy">Limits are easier to manage when you can see whether usage is burning faster than the window can support. AgentPace turns Claude Code and Codex usage into a visible pace graph.</p>
+        <div class="actions">
+          <a class="button" href="/agentpace/#download">Download AgentPace</a>
+          <a class="button secondary" href="/agentpace/faq/">Read the FAQ</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="container article-wrap">
+      <article class="article">
+        <p>Coding agents are most valuable when you are in the middle of real work. They help read unfamiliar code, write tests, explain failures, sketch refactors, and keep momentum through tedious implementation details. That is also why usage limits can be so disruptive. The limit does not usually arrive when you are casually experimenting. It arrives during a session where context is expensive to rebuild.</p>
+
+        <p>Managing that kind of limit is not just about knowing the total used. It is about knowing whether the current pace is sustainable. A counter can say that you have used a certain amount. It cannot say whether that amount is normal for this point in the window, whether the current session is running hot, or whether you are likely to exhaust usage before reset.</p>
+
+        <picture class="screenshot-frame">
+          <source srcset="../agentpace4.webp" type="image/webp">
+          <img src="../agentpace4.jpg" alt="AgentPace menu bar popover with Claude Code and Codex usage pace charts" width="1679" height="1194">
+        </picture>
+
+        <h2>The budget line idea</h2>
+        <p>A useful way to think about coding-agent usage limits is as a budget over time. If the window resets at a known time, there is an implied ideal pace. You do not have to follow that line perfectly, and sometimes you should deliberately spend faster because the work is important. But the line gives you a reference.</p>
+
+        <p>AgentPace makes that reference visible. It overlays actual usage against the ideal pace line so you can see the gap. If actual usage is above pace early in the window, you know the current burn rate may force a tradeoff later. If actual usage is near the line, the window is being used steadily. If it is below the line, you have more room than the raw total might suggest.</p>
+
+        <h2>Why counters are insufficient</h2>
+        <p>Counters flatten the situation. The same usage total can mean different things depending on where you are in the window. Thirty percent used near the beginning of a weekly window is very different from thirty percent used near the end. The number only becomes useful when it is placed against time remaining.</p>
+
+        <p>That is the core reason AgentPace exists. It is not trying to become a general productivity dashboard. It is trying to answer one narrow question with enough context: are you spending coding-agent usage faster than planned?</p>
+
+        <h2>Short windows and weekly windows</h2>
+        <p>Different coding agents expose different kinds of limits. Some windows are short enough that a single intense work block can consume a meaningful share. Others are long enough that the risk builds gradually over days. Both cases benefit from pacing, but for different reasons.</p>
+
+        <p>For short windows, pacing helps you avoid surprise exhaustion during a focused session. For weekly windows, pacing helps you avoid a slow drift where usage feels fine until the remaining budget is suddenly tight. AgentPace is designed around Claude Code and Codex-style windows, including shorter reset windows and weekly usage patterns.</p>
+
+        <h2>Why the menu bar is the right UI</h2>
+        <p>Usage pacing should be visible without becoming work of its own. A browser dashboard is too far away. A full analytics product is too heavy. A menu bar utility is the right shape because it can stay quiet until you need it. You click, check whether the graph is ahead or behind pace, and return to your editor.</p>
+
+        <p>That also keeps the product honest. AgentPace is not asking you to build a workflow around it. It is a small local app for answering a practical question at the moment the answer matters.</p>
+
+        <h2>Privacy belongs in the model</h2>
+        <p>Coding-agent usage data can reveal more than it appears to. It can show when you work, how intense a project is, and which tools you rely on. AgentPace is local-first for that reason. It has no account, backend dashboard, telemetry, analytics, or ads. Usage history stays on your Mac.</p>
+
+        <div class="cta-band">
+          <h2>Turn limits into a visible pace graph.</h2>
+          <p>Download AgentPace to turn coding-agent usage limits into a visible pace graph.</p>
+          <a class="button" href="/agentpace/#download">Download AgentPace</a>
+        </div>
+      </article>
+
+      <aside class="sidebar" aria-label="Related AgentPace pages">
+        <div class="panel">
+          <h2>AgentPace</h2>
+          <p>A macOS menu bar pace meter for Claude Code and Codex usage windows.</p>
+        </div>
+        <div class="panel">
+          <h3>Related guides</h3>
+          <ul>
+            <li><a href="/agentpace/claude-code-usage-tracker/">Claude Code usage tracker</a></li>
+            <li><a href="/agentpace/codex-usage-tracker/">Codex usage tracker</a></li>
+            <li><a href="/agentpace/local-first-agent-usage-tracker/">Local-first usage tracking</a></li>
+            <li><a href="/agentpace/faq/">Full AgentPace FAQ</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>Made by <a href="https://festudio.net">Fe Studio</a></span>
+      <div class="footer-links">
+        <a href="/agentpace/">AgentPace</a>
+        <a href="/agentpace/faq/">FAQ</a>
+        <a href="mailto:jared@festudio.net">Support</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

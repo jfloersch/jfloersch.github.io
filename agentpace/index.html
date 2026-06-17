@@ -4,20 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>AgentPace - macOS Menu Bar Pace Meter for Claude Code and Codex</title>
-  <meta name="description" content="AgentPace is a minimal macOS menu bar app that helps you pace Claude Code and Codex usage across weekly and 5-hour quota windows.">
+  <title>AgentPace &ndash; Claude Code &amp; Codex Usage Pace Meter for Mac</title>
+  <meta name="description" content="AgentPace is a macOS menu bar app that shows whether your Claude Code and Codex usage is ahead of or behind pace, so you know when you are likely to run out.">
   <meta name="keywords" content="agentpace, claude code usage, codex usage, ai usage tracker, macos menu bar app, usage pace meter, claude code, codex, developer tool">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://festudio.net/agentpace/">
 
-  <meta property="og:title" content="AgentPace - macOS AI Usage Pace Meter">
-  <meta property="og:description" content="A minimal macOS menu bar app for pacing Claude Code and Codex usage against ideal weekly and 5-hour budget lines.">
+  <meta property="og:title" content="AgentPace &ndash; Claude Code &amp; Codex Usage Pace Meter for Mac">
+  <meta property="og:description" content="AgentPace is a macOS menu bar app that shows whether your Claude Code and Codex usage is ahead of or behind pace, so you know when you are likely to run out.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://festudio.net/agentpace">
-  <meta property="og:image" content="https://festudio.net/agentpace/app-icon.png">
+  <meta property="og:url" content="https://festudio.net/agentpace/">
+  <meta property="og:image" content="https://festudio.net/agentpace/og-image.png">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="AgentPace - macOS AI Usage Pace Meter">
-  <meta name="twitter:description" content="See whether your Claude Code and Codex usage is ahead of or behind your ideal pace.">
-  <meta name="twitter:image" content="https://festudio.net/agentpace/app-icon.png">
+  <meta name="twitter:title" content="AgentPace &ndash; Claude Code &amp; Codex Usage Pace Meter for Mac">
+  <meta name="twitter:description" content="AgentPace is a macOS menu bar app that shows whether your Claude Code and Codex usage is ahead of or behind pace, so you know when you are likely to run out.">
+  <meta name="twitter:image" content="https://festudio.net/agentpace/og-image.png">
 
   <link rel="icon" type="image/png" href="app-icon.png">
   <link rel="apple-touch-icon" href="app-icon.png">
@@ -28,9 +30,9 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "AgentPace",
-    "operatingSystem": "macOS",
     "applicationCategory": "DeveloperApplication",
-    "description": "A minimal macOS menu bar app that helps developers pace Claude Code and Codex usage across weekly and 5-hour quota windows.",
+    "operatingSystem": "macOS",
+    "description": "AgentPace is a macOS menu bar app that tracks Claude Code and Codex-style usage windows and shows whether usage is ahead of or behind ideal pace.",
     "url": "https://festudio.net/agentpace",
     "author": {
       "@type": "Organization",
@@ -42,15 +44,7 @@
       "price": "4.99",
       "priceCurrency": "USD",
       "description": "7-day free trial, then $4.99 one-time lifetime unlock"
-    },
-    "featureList": [
-      "Menu-bar-only macOS app",
-      "Codex and Claude Code usage pacing",
-      "Weekly and 5-hour pace charts",
-      "Ideal pace vs actual usage",
-      "Local usage history",
-      "No analytics, telemetry, or backend"
-    ]
+    }
   }
   </script>
 
@@ -208,7 +202,7 @@
 
     h1 {
       max-width: 680px;
-      font-size: 6.5rem;
+      font-size: 5.2rem;
       line-height: 0.91;
       letter-spacing: 0;
       font-weight: 800;
@@ -460,6 +454,63 @@
       line-height: 1.5;
     }
 
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--line);
+    }
+
+    .faq-item {
+      padding: 24px;
+      background: var(--surface);
+    }
+
+    .faq-item h3 {
+      margin-bottom: 10px;
+      font-size: 1.02rem;
+      line-height: 1.25;
+    }
+
+    .faq-item p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.65;
+    }
+
+    .learn-list {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 1px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--line);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .learn-list a {
+      display: flex;
+      min-height: 92px;
+      align-items: center;
+      padding: 18px;
+      background: var(--surface-soft);
+      color: var(--ink);
+      font-weight: 700;
+      line-height: 1.25;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    .learn-list a:hover {
+      background: var(--surface);
+      color: var(--accent-strong);
+    }
+
     .download {
       padding: 90px 0;
       color: #fff;
@@ -567,7 +618,7 @@
       }
 
       h1 {
-        font-size: 4.8rem;
+        font-size: 3.9rem;
       }
 
       h2 {
@@ -604,7 +655,12 @@
         grid-template-columns: 1fr;
       }
 
-      .meta-grid {
+      .meta-grid,
+      .faq-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .learn-list {
         grid-template-columns: 1fr 1fr;
       }
     }
@@ -632,7 +688,7 @@
       }
 
       h1 {
-        font-size: 3.5rem;
+        font-size: 2.9rem;
       }
 
       h2 {
@@ -664,7 +720,9 @@
       }
 
       .feature-strip,
-      .meta-grid {
+      .meta-grid,
+      .faq-grid,
+      .learn-list {
         grid-template-columns: 1fr;
       }
 
@@ -699,7 +757,7 @@
   <header class="topbar" id="topbar">
     <div class="container">
       <nav class="nav" aria-label="Primary">
-        <a class="brand" href="/agentpace" aria-label="AgentPace home">
+        <a class="brand" href="/agentpace/" aria-label="AgentPace home">
           <img src="app-icon.png" alt="">
           <span>AgentPace</span>
         </a>
@@ -707,6 +765,7 @@
           <a href="#features">Features</a>
           <a href="#screens">Screens</a>
           <a href="#download">Download</a>
+          <a href="#faq">FAQ</a>
         </div>
       </nav>
     </div>
@@ -718,7 +777,7 @@
         <div class="hero-grid">
           <div>
             <p class="eyebrow fade-in">macOS menu bar pace meter</p>
-            <h1 class="fade-in">Keep your agents on pace.</h1>
+            <h1 class="fade-in">Keep Claude and Codex<br>on Pace.</h1>
             <p class="hero-copy fade-in">
               AgentPace shows whether your Claude Code and Codex usage is ahead of or behind your ideal pace, so you can make quota decisions before the window gets tight.
             </p>
@@ -866,7 +925,7 @@
             <p class="eyebrow fade-in">Direct distribution</p>
             <h2 class="fade-in">Download AgentPace for macOS.</h2>
             <p class="fade-in">
-              AgentPace is distributed directly by Fe Studio. Download the latest macOS disk image from the GitHub release.
+              AgentPace is distributed directly by Fe Studio as a focused local developer utility. Download the latest macOS disk image from the GitHub release, try it for 7 days, and unlock it once for $4.99.
             </p>
           </div>
           <aside class="download-panel fade-in" aria-label="AgentPace download details">
@@ -880,10 +939,79 @@
               <dd>7-day trial</dd>
               <dt>Unlock</dt>
               <dd>$4.99 one-time</dd>
+              <dt>Trust</dt>
+              <dd>Local app, email support</dd>
             </dl>
             <a class="button" href="https://github.com/jfloersch/agentpace-downloads/releases/latest/download/AgentPace.dmg">Download DMG</a>
           </aside>
         </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow fade-in">FAQ</p>
+            <h2 class="fade-in">Common questions.</h2>
+          </div>
+          <p class="section-lead fade-in">
+            Short answers about what AgentPace tracks, how it handles usage data, and how the trial works.
+          </p>
+        </div>
+
+        <div class="faq-grid">
+          <article class="faq-item fade-in">
+            <h3>What is AgentPace?</h3>
+            <p>AgentPace is a macOS menu bar app that graphs coding-agent usage and compares it against an ideal pace so you can see whether you are likely to run out before your usage window resets.</p>
+          </article>
+          <article class="faq-item fade-in">
+            <h3>How is AgentPace different from a usage counter?</h3>
+            <p>A counter tells you how much you have used. AgentPace shows whether that usage is ahead of or behind pace and helps forecast whether you are likely to hit your limit early.</p>
+          </article>
+          <article class="faq-item fade-in">
+            <h3>Does AgentPace support Claude Code and Codex?</h3>
+            <p>AgentPace is designed around Claude Code and Codex-style usage windows, including weekly and shorter reset windows.</p>
+          </article>
+          <article class="faq-item fade-in">
+            <h3>Does AgentPace upload my usage data?</h3>
+            <p>No. AgentPace is a local macOS utility with no account, cloud dashboard, telemetry, ads, or analytics.</p>
+          </article>
+          <article class="faq-item fade-in">
+            <h3>Why isn&rsquo;t AgentPace on the Mac App Store?</h3>
+            <p>AgentPace is distributed directly because it needs to work as a focused local developer utility outside the normal App Store flow.</p>
+          </article>
+          <article class="faq-item fade-in">
+            <h3>How does the free trial work?</h3>
+            <p>AgentPace has a 7-day free trial. After that, it can be unlocked with a $4.99 lifetime license key.</p>
+          </article>
+          <article class="faq-item fade-in">
+            <h3>Will AgentPace support more coding agents?</h3>
+            <p>AgentPace should be designed to support more coding-agent usage windows over time, especially if users ask for them.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="learn-more-title">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow fade-in">Learn more</p>
+            <h2 class="fade-in" id="learn-more-title">Deeper guides.</h2>
+          </div>
+          <p class="section-lead fade-in">
+            AgentPace keeps this page short. The supporting pages explain usage limits, pacing, privacy, and setup details in more depth.
+          </p>
+        </div>
+
+        <ul class="learn-list fade-in">
+          <li><a href="/agentpace/claude-code-usage-tracker/">Claude Code usage tracking</a></li>
+          <li><a href="/agentpace/codex-usage-tracker/">Codex usage tracking</a></li>
+          <li><a href="/agentpace/coding-agent-usage-limits/">How coding-agent usage limits work</a></li>
+          <li><a href="/agentpace/local-first-agent-usage-tracker/">Local-first usage tracking</a></li>
+          <li><a href="/agentpace/faq/">Full AgentPace FAQ</a></li>
+        </ul>
       </div>
     </section>
   </main>
@@ -893,6 +1021,7 @@
       <span>Made by <a href="https://festudio.net">Fe Studio</a></span>
       <div class="footer-links">
         <a href="/agentpace/privacy">Privacy</a>
+        <a href="/agentpace/faq/">FAQ</a>
         <a href="mailto:jared@festudio.net">Support</a>
       </div>
     </div>

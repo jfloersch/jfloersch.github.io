@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>A Local-First Coding Agent Usage Tracker &ndash; AgentPace</title>
+  <meta name="description" content="AgentPace is a local-first macOS utility for tracking coding-agent usage. No account, no cloud dashboard, no telemetry, no ads, and no analytics.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://festudio.net/agentpace/local-first-agent-usage-tracker/">
+
+  <meta property="og:title" content="A Local-First Coding Agent Usage Tracker &ndash; AgentPace">
+  <meta property="og:description" content="AgentPace is a local-first macOS utility for tracking coding-agent usage. No account, no cloud dashboard, no telemetry, no ads, and no analytics.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://festudio.net/agentpace/local-first-agent-usage-tracker/">
+  <meta property="og:image" content="https://festudio.net/agentpace/og-image.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="A Local-First Coding Agent Usage Tracker &ndash; AgentPace">
+  <meta name="twitter:description" content="AgentPace is a local-first macOS utility for tracking coding-agent usage. No account, no cloud dashboard, no telemetry, no ads, and no analytics.">
+  <meta name="twitter:image" content="https://festudio.net/agentpace/og-image.png">
+
+  <link rel="icon" type="image/png" href="../app-icon.png">
+  <link rel="apple-touch-icon" href="../app-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../seo.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <nav class="nav" aria-label="Primary">
+        <a class="brand" href="/agentpace/" aria-label="AgentPace home">
+          <img src="../app-icon.png" alt="">
+          <span>AgentPace</span>
+        </a>
+        <div class="nav-links">
+          <a href="/agentpace/">Product</a>
+          <a href="/agentpace/faq/">FAQ</a>
+          <a href="/agentpace/#download">Download</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Local-first usage tracker</p>
+        <h1>A local-first usage tracker for coding agents.</h1>
+        <p class="hero-copy">AgentPace is intentionally small: no account, no cloud dashboard, no telemetry, no ads, and no analytics. Usage tracking stays on your Mac.</p>
+        <div class="actions">
+          <a class="button" href="/agentpace/#download">Download AgentPace</a>
+          <a class="button secondary" href="/agentpace/privacy">Read privacy policy</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="container article-wrap">
+      <article class="article">
+        <p>Usage data for coding agents can feel private because it is close to the way you work. It can reflect when you are active, how long a project took, how often you lean on an agent, and whether a coding session was unusually intense. That does not need to become another cloud dashboard.</p>
+
+        <p>AgentPace is built as a local-first macOS utility. The product boundary is simple: show whether Claude Code and Codex-style usage is ahead of or behind pace, then get out of the way. It does not require an account. It does not provide a hosted analytics dashboard. It does not include telemetry, ads, or analytics.</p>
+
+        <picture class="screenshot-frame">
+          <source srcset="../agentpace3.webp" type="image/webp">
+          <img src="../agentpace3.png" alt="AgentPace settings for local agent usage tracking" width="2880" height="1800">
+        </picture>
+
+        <h2>What stays on your Mac</h2>
+        <p>AgentPace stores usage snapshots and refresh errors locally on your Mac. The privacy policy documents the local paths and explains how history can be cleared from the app. The point is not to collect a long-term behavioral profile. The point is to make recent usage visible enough that you can understand pace during the active window.</p>
+
+        <p>For Codex, AgentPace reads usage through local Codex tooling. For Claude Code, AgentPace can use local credentials or an AgentPace-owned Keychain item depending on setup. Tokens are not stored in AgentPace settings or usage history. The implementation is designed around local utility behavior rather than server-side reporting.</p>
+
+        <h2>No account, backend dashboard, telemetry, ads, or analytics</h2>
+        <p>The privacy promise is intentionally concrete. AgentPace does not ask you to create an account to see your usage. It does not send your usage history to a Fe Studio dashboard. It does not include third-party analytics, advertising, tracking, or crash-reporting integrations.</p>
+
+        <p>That matters because the app is meant for developers who already have enough services watching their work. A usage tracker should not add another place where work patterns accumulate. AgentPace keeps the interface and the data model focused on the local machine.</p>
+
+        <p>Local-first also keeps the failure modes simpler. If a cloud dashboard is down, rate limited, or changed, the usage tracker becomes another dependency. AgentPace is meant to be a small Mac utility you can reason about: it reads the local usage sources it supports, stores recent history locally, and displays the pace signal in the menu bar.</p>
+
+        <h2>License purchase is separate from usage tracking</h2>
+        <p>AgentPace has a 7-day free trial and a $4.99 lifetime unlock. The purchase flow unlocks the app, but usage tracking itself is not a cloud reporting product. There is no account requirement to maintain a dashboard, no subscription analytics area, and no hosted usage archive.</p>
+
+        <p>That separation is part of the product philosophy. Paying for the app should not mean accepting another monitoring surface. It should mean buying a small tool that keeps a specific local signal visible.</p>
+
+        <h2>Direct distribution trust notes</h2>
+        <p>AgentPace is distributed directly by Fe Studio as a downloadable macOS disk image from the GitHub release. The product page links to the latest DMG, the privacy policy, and support email so the install path is clear. Direct distribution is used because AgentPace is a focused developer utility that needs to work outside the normal App Store flow.</p>
+
+        <p>If a release includes additional signing, notarization, or changelog details, those should be stated plainly alongside the download. The important rule is to avoid vague trust language. Developers need exact information: where the file comes from, what it does locally, how to get support, and how to remove it if they decide not to keep it.</p>
+
+        <p>The trust model should stay boring and inspectable. The product page should point to the current release, the privacy policy should describe local storage plainly, and support should be reachable without creating an account.</p>
+
+        <div class="cta-band">
+          <h2>Use a small local utility instead of another dashboard.</h2>
+          <p>Download AgentPace if you want a small local utility instead of another cloud dashboard.</p>
+          <a class="button" href="/agentpace/#download">Download AgentPace</a>
+        </div>
+      </article>
+
+      <aside class="sidebar" aria-label="Related AgentPace pages">
+        <div class="panel">
+          <h2>AgentPace</h2>
+          <p>A macOS menu bar pace meter for Claude Code and Codex usage windows.</p>
+        </div>
+        <div class="panel">
+          <h3>Related guides</h3>
+          <ul>
+            <li><a href="/agentpace/claude-code-usage-tracker/">Claude Code usage tracker</a></li>
+            <li><a href="/agentpace/codex-usage-tracker/">Codex usage tracker</a></li>
+            <li><a href="/agentpace/coding-agent-usage-limits/">Coding-agent usage limits</a></li>
+            <li><a href="/agentpace/faq/">Full AgentPace FAQ</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>Made by <a href="https://festudio.net">Fe Studio</a></span>
+      <div class="footer-links">
+        <a href="/agentpace/">AgentPace</a>
+        <a href="/agentpace/faq/">FAQ</a>
+        <a href="/agentpace/privacy">Privacy</a>
+        <a href="mailto:jared@festudio.net">Support</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
