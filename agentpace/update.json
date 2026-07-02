@@ -1,8 +1,8 @@
 {
-  "version": "1.0.2",
-  "build": "3",
-  "release_date": "2026-07-02T12:30:00Z",
-  "notes": "Verifies the in-app update flow from AgentPace 1.0.1.",
+  "version": "1.0.3",
+  "build": "4",
+  "release_date": "2026-07-02T13:00:00Z",
+  "notes": "Verifies the in-app update flow from AgentPace 1.0.2.",
   "download_url":
     "https://github.com/jfloersch/agentpace-downloads/releases/latest/download/AgentPace.dmg",
   "minimum_system_version": "14.0"
