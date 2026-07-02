@@ -1,0 +1,9 @@
+{
+  "version": "1.0.1",
+  "build": "2",
+  "release_date": "2026-07-02T12:00:00Z",
+  "notes": "Adds in-app update downloads and improves DMG installation.",
+  "download_url":
+    "https://github.com/jfloersch/agentpace-downloads/releases/latest/download/AgentPace.dmg",
+  "minimum_system_version": "14.0"
+}
